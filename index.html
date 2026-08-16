@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Laptop Point - Premium Laptops & Accessories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-fixed": "#c9e6ff",
+                        "tertiary-container": "#009ada",
+                        "on-tertiary-container": "#002d43",
+                        "surface-variant": "#2d3449",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "surface-container-lowest": "#060e20",
+                        "surface-bright": "#31394d",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary-container": "#e6ecff",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-background": "#dae2fd",
+                        "surface-container-low": "#131b2e",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2d3449",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "primary": "#ddb7ff",
+                        "on-surface-variant": "#cfc2d6",
+                        "primary-fixed": "#f0dbff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary-container": "#400071",
+                        "secondary-container": "#0566d9",
+                        "surface-dim": "#0b1326",
+                        "outline": "#988d9f",
+                        "inverse-on-surface": "#283044",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "background": "#0b1326",
+                        "surface": "#0b1326",
+                        "inverse-primary": "#842bd2",
+                        "on-primary-fixed": "#2c0051",
+                        "outline-variant": "#4d4354",
+                        "primary-container": "#b76dff",
+                        "surface-tint": "#ddb7ff",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dae2fd",
+                        "on-primary": "#490080",
+                        "on-tertiary": "#00344d",
+                        "on-secondary": "#002e6a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-error": "#690005",
+                        "surface-container": "#171f33",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "tertiary": "#89ceff",
+                        "secondary": "#adc6ff",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#222a3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Geist"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Geist"],
+                        "headline-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b1326; /* match surface */
+            color: #dae2fd; /* match on-surface */
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism utility classes */
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4); /* surface-variant */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-border {
+            border: 1px solid transparent;
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-border:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            transform: scale(1.02);
+        }
+        
+        .hero-text-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .scroll-text {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(20px);
+            text-shadow: 0 0 20px rgba(221, 183, 255, 0.5); /* primary shadow */
+        }
+        
+        .scroll-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-none fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max mx-auto">
+<button aria-label="Menu" class="text-primary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">
+                LAPTOP POINT
+            </div>
+<button aria-label="SEARCH" class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform font-label-sm text-label-sm uppercase">
+                SEARCH
+            </button>
+</div>
+</header>
+<!-- Hero Section with 3D Scene -->
+<section class="relative w-full h-screen overflow-hidden">
+<!-- STITCH_THREEJS_START:ANIMATION_3 class="absolute inset-0 w-full h-full object-cover" -->
+<div class="absolute inset-0 w-full h-full object-cover" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_3" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_3');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  // Three.js Scene: Rotating 3D Laptop
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+camera.position.z = 5;
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Simple Laptop Model using primitives
+const laptopGroup = new THREE.Group();
+
+// Screen (Top part)
+const screenGeometry = new THREE.BoxGeometry(4, 2.5, 0.1);
+const screenMaterial = new THREE.MeshPhongMaterial({ 
+    color: 0x111111,
+    emissive: 0x3b82f6,
+    emissiveIntensity: 0.2
+});
+const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+screen.position.y = 1.25;
+laptopGroup.add(screen);
+
+// Screen Content (Glow)
+const contentGeometry = new THREE.PlaneGeometry(3.8, 2.3);
+const contentMaterial = new THREE.MeshBasicMaterial({ 
+    color: 0xa855f7,
+    transparent: true,
+    opacity: 0.8
+});
+const content = new THREE.Mesh(contentGeometry, contentMaterial);
+content.position.z = 0.06;
+content.position.y = 1.25;
+laptopGroup.add(content);
+
+// Keyboard/Base (Bottom part)
+const baseGeometry = new THREE.BoxGeometry(4, 0.2, 2.5);
+const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+const base = new THREE.Mesh(baseGeometry, baseMaterial);
+base.position.y = 0;
+laptopGroup.add(base);
+
+scene.add(laptopGroup);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xa855f7, 1, 10);
+pointLight.position.set(2, 2, 2);
+scene.add(pointLight);
+
+const blueLight = new THREE.PointLight(0x3b82f6, 1, 10);
+blueLight.position.set(-2, 2, 2);
+scene.add(blueLight);
+
+// Animation logic
+let scrollY = 0;
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+});
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Rotation based on time + scroll
+    laptopGroup.rotation.y += 0.01;
+    laptopGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.1 + (scrollY * 0.001);
+    
+    renderer.render(scene, camera);
+}
+
+// Handle Resize
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+});
+
+animate();
+
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_3 -->
+<div class="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none"></div>
+<div class="hero-text-container z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<h1 class="scroll-text active font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary uppercase" id="text-stage-1">
+                LEVEL UP YOUR GEAR
+            </h1>
+<h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-tertiary uppercase" id="text-stage-2">
+                ELITE PERFORMANCE
+            </h1>
+<h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary-fixed uppercase" id="text-stage-3">
+                UNMATCHED PRECISION
+            </h1>
+</div>
+</section>
+<!-- Main Content -->
+<main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24">
+<!-- Featured Products Grids -->
+<section class="space-y-stack-lg fade-in-section">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Flagship Arsenal</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Product 1: Titan G-15 Laptop -->
+<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
+<div class="h-64 w-full bg-surface-container relative overflow-hidden">
+<img alt="Titan G-15 Laptop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-end, futuristic gaming laptop sitting open on a dark obsidian desk. The laptop features sharp, angular metallic chassis with glowing neon purple accents along the edges and keyboard. The screen displays a complex, abstract cyberpunk cityscape. The lighting is low-key, dramatic, and moody, typical of a premium gamer-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZLwU1huY8Y26fLpHcPZnOdb0BKrDvRihO-9aFcxj10qYApqSUFtzGgRYm6NvT1-TowIvV7Y_T8PcqLU7dAXPW88JQ8M1PvjKXf94Xsjwe2GeVk7oA5WZn5NQVcauPeXBHkYynwHPOxZ_v4EhZN8Ym5trj54lNzdxkN1g6NrnVA1VKgyO7TZ66fWY6GM8wto8MNnvgmBLfTF603qveV7-NTfn5BPD5qt-l_rrP6InmsYKPNcfhbN8"/>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<span class="inline-block bg-surface-container-highest text-primary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">System</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Titan G-15 Laptop</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Desktop-grade power compressed into a sleek, obsidian chassis. Engineered for relentless performance.</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-body-lg text-body-lg font-bold text-tertiary">$2,499</span>
+<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all">Configure</button>
+</div>
+</div>
+</article>
+<!-- Product 2: Nova Mech Keyboard -->
+<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
+<div class="h-64 w-full bg-surface-container relative overflow-hidden">
+<img alt="Nova Mech Keyboard" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A premium mechanical gaming keyboard resting on a sleek dark surface. The keyboard has translucent keycaps revealing brilliant, customizable RGB lighting underneath, currently glowing in shades of neon blue and magenta. The casing is brushed black aluminum. The setting is dark and moody, reflecting a high-performance, cyberpunk-inspired setup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmwPuh_w85wfBLCQy2f7YK7s8jB3tHzxAb7AD9BbYQB70ILLumMQLLjKHp2duEgx0-YXZXNe0eWECw72fXcTspzPKwCm0GF4bSD0DzUlOEhC0rnf3x7voDv42zVyrOg0hX_SZibzkpyuAq-MYMW2ms7di5DjJLt5hAOHmivCcMTjUPkBrPUJGeoFUnlZxGZYCPaPcJRQTiDAhL_0eYv2i6WU7EAhysi_77Z-JyXe-AmgXsNkoLjng"/>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<span class="inline-block bg-surface-container-highest text-tertiary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">Input</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Nova Mech Keyboard</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Tactile precision meets vibrant illumination. Custom optical switches for zero-latency response.</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-body-lg text-body-lg font-bold text-tertiary">$199</span>
+<button class="border border-secondary/50 text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:bg-secondary/10 transition-all">View Specs</button>
+</div>
+</div>
+</article>
+<!-- Product 3: Apex Wireless Mouse -->
+<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
+<div class="h-64 w-full bg-surface-container relative overflow-hidden">
+<img alt="Apex Wireless Mouse" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sleek, ergonomic wireless gaming mouse levitating slightly above a glowing mousepad. The mouse has a matte black finish with subtle geometric lines and a neon purple scroll wheel. The background is a deep, immersive dark void with faint grid patterns, emphasizing the high-tech, precise nature of the peripheral." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDANY-nLW7J6w9cB3N8-plOd9MvEbD3gRipEWnmkiyBnDlAptYkN9ScRtbCt4EeF97FKnTEMzg_IYD4fyQulhOPfe-B4_4kViWlFqmz3gjUBWp4_v4E94AG0mjSMDL0IZtDJFjsf5-3zsmYvf_paLij3hjIKpqJs9xXZp2JcQJ3xDAzxWOnMg99SCeV6rAJU0NAaEUbkgDs-zsWmgutFFinCaDV3zHO0BjFJZmNLBteswh70y7ICok"/>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<span class="inline-block bg-surface-container-highest text-secondary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">Peripheral</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Apex Wireless Mouse</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Sub-millisecond wireless technology paired with an ultra-lightweight exoskeleton design.</p>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-body-lg text-body-lg font-bold text-tertiary">$149</span>
+<button class="border border-secondary/50 text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:bg-secondary/10 transition-all">View Specs</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full flex flex-col items-center gap-stack-md py-stack-lg px-margin-mobile transition-all duration-200 mt-stack-lg">
+<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
+            LAPTOP POINT
+        </div>
+<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">HARDWARE</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">SUPPORT</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">WARRANTY</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">COMMUNITY</a>
+</nav>
+<div class="font-body-md text-body-md text-secondary text-center mt-4 opacity-70">
+            © 2026 Laptop Point. Power that fits your world.
+        </div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll-triggered text change logic
+            const stages = [
+                document.getElementById('text-stage-1'),
+                document.getElementById('text-stage-2'),
+                document.getElementById('text-stage-3')
+            ];
+            
+            const handleScroll = () => {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                
+                // Define thresholds for changes
+                const stage2Threshold = windowHeight * 0.3;
+                const stage3Threshold = windowHeight * 0.6;
+                
+                stages.forEach(stage => stage.classList.remove('active'));
+                
+                if (scrollY < stage2Threshold) {
+                    stages[0].classList.add('active');
+                } else if (scrollY < stage3Threshold) {
+                    stages[1].classList.add('active');
+                } else {
+                    stages[2].classList.add('active');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Intersection Observer for fade-in elements
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body></html>
