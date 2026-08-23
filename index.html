@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Laptop Point — premium laptops, keyboards, mice, and accessories in Pakistan. Fast, secure checkout with Cash on Delivery.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Laptop Point - Premium Laptops & Accessories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-fixed": "#c9e6ff",
+                        "tertiary-container": "#009ada",
+                        "on-tertiary-container": "#002d43",
+                        "surface-variant": "#2d3449",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "surface-container-lowest": "#060e20",
+                        "surface-bright": "#31394d",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary-container": "#e6ecff",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-background": "#dae2fd",
+                        "surface-container-low": "#131b2e",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2d3449",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "primary": "#ddb7ff",
+                        "on-surface-variant": "#cfc2d6",
+                        "primary-fixed": "#f0dbff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-primary-container": "#400071",
+                        "secondary-container": "#0566d9",
+                        "surface-dim": "#0b1326",
+                        "outline": "#988d9f",
+                        "inverse-on-surface": "#283044",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "background": "#0b1326",
+                        "surface": "#0b1326",
+                        "inverse-primary": "#842bd2",
+                        "on-primary-fixed": "#2c0051",
+                        "outline-variant": "#4d4354",
+                        "primary-container": "#b76dff",
+                        "surface-tint": "#ddb7ff",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dae2fd",
+                        "on-primary": "#490080",
+                        "on-tertiary": "#00344d",
+                        "on-secondary": "#002e6a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-error": "#690005",
+                        "surface-container": "#171f33",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "tertiary": "#89ceff",
+                        "secondary": "#adc6ff",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#222a3d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "48px",
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Geist"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Geist"],
+                        "headline-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b1326; /* match surface */
+            color: #dae2fd; /* match on-surface */
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism utility classes */
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.4); /* surface-variant */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-border {
+            border: 1px solid transparent;
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-border:hover {
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .hero-text-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .scroll-text {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(20px);
+            text-shadow: 0 0 20px rgba(221, 183, 255, 0.5); /* primary shadow */
+        }
+        
+        .scroll-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* THEME-TINT: apply this class to any <img> (product photos, new uploads,
+           anything) and it automatically renders with the site's purple/blue neon
+           mood — no manual photo editing needed per upload. To retint the whole
+           site later, only these two rules need to change. */
+        .theme-tint {
+            position: relative;
+        }
+        .theme-tint img {
+            filter: saturate(0.85) contrast(1.05) brightness(0.9);
+        }
+        .theme-tint::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
+            mix-blend-mode: color;
+            pointer-events: none;
+        }
+
+        /* HERO ENTRANCE: elements start invisible/offset, then get .is-visible added
+           once on page load. Each one has its own transition-delay set inline, so
+           they arrive in a deliberate sequence instead of all popping in at once. */
+        .hero-enter {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .hero-enter.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating spec callouts around the laptop — gentle drift, not a spin */
+        .spec-badge {
+            animation: spec-float 4s ease-in-out infinite;
+        }
+        .spec-badge.delay-1 { animation-delay: 0.3s; }
+        .spec-badge.delay-2 { animation-delay: 0.9s; }
+        .spec-badge.delay-3 { animation-delay: 1.5s; }
+        @keyframes spec-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .scroll-line {
+            animation: scroll-line-pulse 1.8s ease-in-out infinite;
+            transform-origin: top;
+        }
+        @keyframes scroll-line-pulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+    </style>
+<style>
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-none fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max mx-auto">
+<div class="relative">
+<button id="nav-menu-btn" aria-label="Menu" aria-expanded="false" class="text-primary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<nav id="nav-menu-panel" class="hidden absolute left-0 top-full mt-3 w-48 rounded-xl bg-surface-container border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden z-50">
+<a href="#top" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors">Home</a>
+<a href="#laptops" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Laptops</a>
+<a href="#accessories" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Accessories</a>
+<a href="cart.html" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Cart</a>
+<a href="admin/login.html" class="block px-4 py-3 text-xs uppercase tracking-wide text-on-surface-variant/50 hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Admin</a>
+</nav>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">
+                LAPTOP POINT
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.3em] uppercase opacity-60 hidden sm:block">Premium Computing</span>
+</div>
+<div class="flex items-center gap-5">
+<button aria-label="SEARCH" class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform font-label-sm text-label-sm uppercase">
+                SEARCH
+            </button>
+<a href="cart.html" aria-label="Cart" class="relative flex items-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">shopping_cart</span>
+<span id="cart-count" class="hidden absolute -top-2 -right-2 text-[10px] bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center">0</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Hero Section with 3D Scene -->
+<section id="top" class="relative w-full h-screen overflow-hidden">
+<!-- STITCH_THREEJS_START:ANIMATION_3 class="absolute inset-0 w-full h-full object-cover" -->
+<div class="absolute inset-0 w-full h-full object-cover" style="display:block;">
+<script src="https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.125.0/examples/js/loaders/GLTFLoader.js"></script>
+<div id="threejs-container-ANIMATION_3" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_3');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+
+  // THEME CONFIG — pulled straight from DESIGN.md. Change a color here and the
+  // hero lighting (and, once the real model is loaded, its glow) updates everywhere
+  // it's used below, instead of hunting through the script for stray hex codes.
+  const THEME = {
+    primary: 0xa855f7,   // electric violet — matches DESIGN.md "Primary"
+    secondary: 0x3b82f6, // technical blue — matches DESIGN.md "Secondary"
+    ambient: 0xffffff
+  };
+
+  // Three.js Scene: Rotating 3D Laptop
+const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+camera.position.z = 5;
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+ const laptopGroup = new THREE.Group();
+ const loader = new THREE.GLTFLoader();
+ loader.load('assets/models/laptop.glb', (gltf) => {
+     const model = gltf.scene;
+     model.scale.set(15, 15, 15);        // resize until it fits the scene (try 0.5–3 as a starting range)
+     model.position.set(0, -1.5, 0);     // recenter if it loads off-screen
+     model.rotation.set(0, 0, 0);     // set a resting angle
+     laptopGroup.add(model);
+     scene.add(laptopGroup);
+});
+// ───────────────────────────────────────────────────────────────────────────
+
+// Lighting — colors come from THEME above, so changing THEME.primary/secondary
+// updates both the model's glow (if it has emissive materials) and these lights
+// together, from one place.
+const ambientLight = new THREE.AmbientLight(THEME.ambient, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(THEME.primary, 1, 10);
+pointLight.position.set(2, 2, 2);
+scene.add(pointLight);
+
+const blueLight = new THREE.PointLight(THEME.secondary, 1, 10);
+blueLight.position.set(-2, 2, 2);
+scene.add(blueLight);
+
+// Animation logic
+let scrollY = 0;
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+});
+
+// Mouse parallax — normalized -1..1, drives a subtle laptop tilt toward the cursor
+let mouseX = 0, mouseY = 0;
+window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+
+    // Layered parallax on the DOM elements behind/around the laptop — moves less
+    // than the laptop itself so everything reads as sitting at a different depth
+    const glow = document.getElementById('hero-glow');
+    if (glow) glow.style.transform = `translate(${mouseX * 20}px, ${mouseY * 10}px)`;
+    const heroContent = document.getElementById('hero-content');
+    if (heroContent) heroContent.style.transform = `translate(${mouseX * 4}px, ${mouseY * 2}px)`;
+});
+
+// Entrance animation — laptop scales in from nothing over ~1.2s on load, eased
+// out so it decelerates naturally instead of snapping to full size.
+let entranceStart = null;
+const ENTRANCE_DURATION = 1200;
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+function animate(timestamp) {
+    requestAnimationFrame(animate);
+
+    if (entranceStart === null) entranceStart = timestamp;
+    const elapsed = timestamp - entranceStart;
+    const entranceT = Math.min(elapsed / ENTRANCE_DURATION, 1);
+    const entranceScale = easeOutCubic(entranceT);
+    laptopGroup.scale.setScalar(entranceScale);
+
+    // Blend three motion sources: slow idle float, scroll-driven tilt, and the
+    // mouse parallax tilt — each subtle on its own, together they read as "alive"
+    const idleFloat = Math.sin(Date.now() * 0.001) * 0.1;
+    const mouseTiltX = -mouseY * 0.12;
+    const mouseTiltY = mouseX * 0.25;
+
+    laptopGroup.rotation.y += 0.006;
+    laptopGroup.rotation.y += mouseTiltY * 0.02;
+    laptopGroup.rotation.x = idleFloat + (scrollY * 0.001) + mouseTiltX;
+
+    renderer.render(scene, camera);
+}
+
+// Handle Resize
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+});
+
+requestAnimationFrame(animate);
+
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_3 -->
+<div class="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none"></div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0" id="hero-glow">
+<div class="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full bg-primary/15 blur-[100px]"></div>
+</div>
+<!-- Floating spec callouts -->
+<div class="hidden md:block absolute top-[26%] left-[6%] z-10 hero-enter" id="spec-1" style="transition-delay:1.0s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">RTX 5070</span>
+</div>
+</div>
+<div class="hidden md:block absolute top-[26%] right-[6%] z-10 hero-enter" id="spec-2" style="transition-delay:1.2s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(137,206,255,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">240Hz OLED</span>
+</div>
+</div>
+<div class="hidden md:block absolute bottom-[22%] left-[10%] z-10 hero-enter" id="spec-3" style="transition-delay:1.4s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-3">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">32GB DDR5</span>
+</div>
+</div>
+<div class="hidden md:block absolute bottom-[22%] right-[10%] z-10 hero-enter" id="spec-4" style="transition-delay:1.6s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">2TB NVMe</span>
+</div>
+</div>
+<div class="hero-text-container z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col items-center" id="hero-content" style="pointer-events:auto;">
+<span class="font-label-sm text-label-sm text-tertiary tracking-[0.3em] uppercase mb-4 hero-enter" id="hero-eyebrow" style="transition-delay:0.2s;">Next-Gen Hardware</span>
+<div class="relative text-center w-full flex items-center justify-center min-h-[160px] sm:min-h-[130px] md:min-h-[170px]">
+<h1 class="scroll-text active font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary uppercase" id="text-stage-1">
+                POWER WITHOUT LIMITS
+            </h1>
+<h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-tertiary uppercase" id="text-stage-2">
+                ENGINEERED TO OUTPERFORM
+            </h1>
+<h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary-fixed uppercase" id="text-stage-3">
+                BUILT FOR WHAT'S NEXT
+            </h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-center max-w-xl mt-6 hero-enter" id="hero-subtext" style="transition-delay:0.5s;">
+                Premium laptops, peripherals and hardware engineered for work, play and everything between.
+            </p>
+<div class="flex flex-wrap justify-center gap-4 mt-8 hero-enter" id="hero-ctas" style="transition-delay:0.8s;">
+<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all">Explore Laptops</button>
+<button class="border border-white/20 text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:border-primary/50 hover:bg-white/5 transition-all">Build Your Setup</button>
+</div>
+</div>
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-enter" id="scroll-indicator" style="transition-delay:1.8s;">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.25em] uppercase opacity-70">Scroll to Explore</span>
+<div class="w-px h-8 bg-gradient-to-b from-primary to-transparent scroll-line"></div>
+</div>
+</section>
+<!-- Main Content -->
+<main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24">
+<!-- Laptops -->
+<section id="laptops" class="space-y-stack-lg fade-in-section scroll-mt-24">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Flagship Arsenal</h2>
+<div id="laptops-loading" class="text-on-surface-variant text-sm">Loading laptops...</div>
+<div id="laptops-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"></div>
+</section>
+<!-- Accessories -->
+<section id="accessories" class="space-y-stack-lg fade-in-section mt-stack-lg scroll-mt-24">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Gear &amp; Accessories</h2>
+<div id="accessories-loading" class="text-on-surface-variant text-sm">Loading accessories...</div>
+<div id="accessories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full flex flex-col items-center gap-stack-md py-stack-lg px-margin-mobile transition-all duration-200 mt-stack-lg">
+<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
+            LAPTOP POINT
+        </div>
+<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">HARDWARE</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">SUPPORT</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">WARRANTY</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">COMMUNITY</a>
+</nav>
+<div class="font-body-md text-body-md text-secondary text-center mt-4 opacity-70">
+            © 2026 Laptop Point. Power that fits your world.
+        </div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Trigger the hero entrance sequence — each .hero-enter element has its
+            // own transition-delay set inline, so adding .is-visible to all of them
+            // at once still produces a staggered arrival, not a simultaneous pop-in.
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.hero-enter').forEach(el => el.classList.add('is-visible'));
+            });
+
+            // Scroll-triggered text change logic
+            const stages = [
+                document.getElementById('text-stage-1'),
+                document.getElementById('text-stage-2'),
+                document.getElementById('text-stage-3')
+            ];
+            
+            const handleScroll = () => {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                
+                // Define thresholds for changes
+                const stage2Threshold = windowHeight * 0.3;
+                const stage3Threshold = windowHeight * 0.6;
+                
+                stages.forEach(stage => stage.classList.remove('active'));
+                
+                if (scrollY < stage2Threshold) {
+                    stages[0].classList.add('active');
+                } else if (scrollY < stage3Threshold) {
+                    stages[1].classList.add('active');
+                } else {
+                    stages[2].classList.add('active');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Intersection Observer for fade-in elements
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        // Storefront product loading — reads from the public_products view, which
+        // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
+        // never the real stock_quantity number. See database/schema.sql.
+        const ACCESSORY_CATEGORIES = ['keyboard', 'mouse', 'headset', 'bag', 'other'];
+
+        const availabilityLabel = {
+            in_stock: '<span class="text-green-400">In Stock</span>',
+            low_stock: '<span class="text-yellow-400">Low Stock</span>',
+            out_of_stock: '<span class="text-red-400">Out of Stock</span>',
+        };
+
+        function productCardHTML(p) {
+            const img = (p.images && p.images[0]) || '';
+            const priceHTML = p.discount_price
+                ? `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.discount_price).toLocaleString()}</span>
+                   <span class="text-xs text-on-surface-variant line-through ml-1">Rs. ${Number(p.price).toLocaleString()}</span>`
+                : `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.price).toLocaleString()}</span>`;
+
+            return `
+            <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
+                <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint">
+                    <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${img}"/>
+                </div>
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3 pb-3 border-b border-white/10">
+                            <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase">${p.category}</span>
+                            <span class="text-xs uppercase tracking-wide">${availabilityLabel[p.availability] || ''}</span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${p.name}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6">${p.description || ''}</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        ${priceHTML}
+                        <span class="flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">View <span class="material-symbols-outlined text-base">arrow_forward</span></span>
+                    </div>
+                </div>
+            </a>`;
+        }
+
+        async function loadStorefrontProducts() {
+            const { data: products, error } = await supabaseClient
+                .from('public_products')
+                .select('*');
+
+            if (error) {
+                document.getElementById('laptops-loading').textContent = 'Could not load products.';
+                document.getElementById('accessories-loading').textContent = '';
+                console.error(error);
+                return;
+            }
+
+            const laptops = products.filter(p => p.category === 'laptop');
+            const accessories = products.filter(p => ACCESSORY_CATEGORIES.includes(p.category));
+
+            document.getElementById('laptops-loading').classList.add('hidden');
+            document.getElementById('accessories-loading').classList.add('hidden');
+
+            document.getElementById('laptops-grid').innerHTML = laptops.length
+                ? laptops.map(productCardHTML).join('')
+                : '<p class="text-on-surface-variant text-sm col-span-full">No laptops available right now.</p>';
+
+            document.getElementById('accessories-grid').innerHTML = accessories.length
+                ? accessories.map(productCardHTML).join('')
+                : '<p class="text-on-surface-variant text-sm col-span-full">No accessories available right now.</p>';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStorefrontProducts();
+            updateCartCount();
+        });
+
+        // ── Nav dropdown: click the hamburger to toggle, click outside or a
+        // link to close. Laptops/Accessories use native anchor scroll (the
+        // scroll-mt-24 class on those sections keeps them from hiding under
+        // the fixed header).
+        const navBtn = document.getElementById('nav-menu-btn');
+        const navPanel = document.getElementById('nav-menu-panel');
+
+        navBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !navPanel.classList.contains('hidden');
+            navPanel.classList.toggle('hidden');
+            navBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        navPanel.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navPanel.classList.add('hidden');
+                navBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navPanel.classList.contains('hidden') && !navPanel.contains(e.target) && e.target !== navBtn) {
+                navPanel.classList.add('hidden');
+                navBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    </script>
+</body></html>
