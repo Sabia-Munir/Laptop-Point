@@ -7,6 +7,11 @@
 -- admin-only under RLS — the function itself is the only door left open, and
 -- it only ever decrements by the ordered quantity, never lets the caller set
 -- stock to an arbitrary number.
+--
+-- auth.uid() below reflects whoever is actually calling this (based on their
+-- session), not the function owner — so a logged-in customer's order gets
+-- tagged with their account automatically, and a guest checkout just stores
+-- null, which is fine since customer_auth_id is nullable.
 
 create or replace function place_order(
   p_items jsonb,             -- [{ product_id, name, quantity, price_at_order }]
@@ -46,8 +51,8 @@ begin
     end if;
   end loop;
 
-  insert into orders (items, total_amount, payment_method, shipping_address)
-  values (p_items, p_total_amount, p_payment_method, p_shipping_address)
+  insert into orders (items, total_amount, payment_method, shipping_address, customer_auth_id)
+  values (p_items, p_total_amount, p_payment_method, p_shipping_address, auth.uid())
   returning id into v_order_id;
 
   for v_item in select * from jsonb_array_elements(p_items) loop
