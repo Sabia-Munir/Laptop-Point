@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Admin Dashboard - Laptop Point</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel {
+        background: rgba(45, 52, 73, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand { font-family: 'Geist', sans-serif; }
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+        display: none; align-items: center; justify-content: center; z-index: 50; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .input-field {
+        width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: #dae2fd;
+    }
+    .input-field:focus { outline: none; border-color: rgba(168,85,247,0.6); }
+    .badge-instock { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-low { background: rgba(234,179,8,0.15); color: #facc15; }
+    .badge-out { background: rgba(239,68,68,0.15); color: #f87171; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Top bar -->
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center">
+    <div class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT <span class="text-xs font-normal text-white/40 tracking-widest ml-1">ADMIN</span></div>
+    <div class="flex items-center gap-4">
+        <span id="admin-email" class="text-xs text-white/40"></span>
+        <button id="logout-btn" class="text-xs uppercase tracking-wider text-white/60 hover:text-red-400 transition-colors">Log out</button>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold">Products</h1>
+        <button id="add-product-btn" class="bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white px-5 py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+            + Add Product
+        </button>
+    </div>
+
+    <div id="loading-msg" class="text-white/40 text-sm">Loading products...</div>
+    <div id="empty-msg" class="text-white/40 text-sm hidden">No products yet — click "Add Product" to create your first one.</div>
+
+    <div class="glass-panel rounded-xl overflow-hidden hidden" id="products-table-wrap">
+        <table class="w-full text-sm">
+            <thead class="bg-white/5 text-left text-xs uppercase tracking-wider text-white/50">
+                <tr>
+                    <th class="px-4 py-3">Photo</th>
+                    <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">Category</th>
+                    <th class="px-4 py-3">Price</th>
+                    <th class="px-4 py-3">Stock</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            </thead>
+            <tbody id="products-tbody"></tbody>
+        </table>
+    </div>
+</main>
+
+<!-- Add/Edit Product Modal -->
+<div class="modal-overlay" id="product-modal">
+    <div class="glass-panel rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
+        <div class="flex justify-between items-center mb-5">
+            <h2 class="text-lg font-semibold" id="modal-title">Add Product</h2>
+            <button id="close-modal-btn" class="text-white/50 hover:text-white text-xl leading-none">&times;</button>
+        </div>
+
+        <form id="product-form" class="space-y-4">
+            <input type="hidden" id="product-id"/>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Product Name</label>
+                <input id="p-name" type="text" required class="input-field" placeholder="e.g. Dell Inspiron 15 3520"/>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Brand</label>
+                    <input id="p-brand" type="text" class="input-field" placeholder="Dell"/>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Category</label>
+                    <select id="p-category" required class="input-field">
+                        <option value="laptop">Laptop</option>
+                        <option value="keyboard">Keyboard</option>
+                        <option value="mouse">Mouse</option>
+                        <option value="headset">Headset</option>
+                        <option value="bag">Bag</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Price (Rs.)</label>
+                    <input id="p-price" type="number" step="0.01" required class="input-field" placeholder="145000"/>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Discount Price</label>
+                    <input id="p-discount-price" type="number" step="0.01" class="input-field" placeholder="optional"/>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Stock Qty</label>
+                    <input id="p-stock" type="number" required class="input-field" placeholder="4"/>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Description</label>
+                <textarea id="p-description" rows="2" class="input-field" placeholder="Short 1-2 sentence description"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-2">Key Specs</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <input id="spec-processor" type="text" class="input-field" placeholder="Processor (i5 12th Gen)"/>
+                    <input id="spec-ram" type="text" class="input-field" placeholder="RAM (8GB)"/>
+                    <input id="spec-storage" type="text" class="input-field" placeholder="Storage (512GB SSD)"/>
+                    <input id="spec-screen" type="text" class="input-field" placeholder="Screen (15.6&quot; FHD)"/>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Status</label>
+                <select id="p-status" class="input-field">
+                    <option value="active">Active (visible on storefront)</option>
+                    <option value="draft">Draft (hidden)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Photos</label>
+                <input id="p-images" type="file" accept="image/*" multiple class="input-field"/>
+                <div id="existing-images" class="flex gap-2 mt-2"></div>
+                <p class="text-xs text-white/30 mt-1">Uploading new photos adds to (doesn't replace) existing ones when editing.</p>
+            </div>
+
+            <p id="form-error" class="text-sm text-red-400 hidden"></p>
+
+            <div class="flex gap-3 pt-2">
+                <button type="submit" id="save-btn" class="flex-1 bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider">
+                    Save Product
+                </button>
+                <button type="button" id="cancel-btn" class="px-5 py-2.5 rounded-lg text-sm border border-white/20 text-white/70 hover:bg-white/5">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../assets/js/supabase-client.js"></script>
+<script>
+    let currentImages = []; // image URLs for the product currently being edited
+
+    // ── AUTH GUARD ───────────────────────────────────────────────────────────
+    (async function checkAuth() {
+        const { data } = await supabaseClient.auth.getSession();
+        if (!data.session) {
+            window.location.href = 'login.html';
+            return;
+        }
+        document.getElementById('admin-email').textContent = data.session.user.email;
+        loadProducts();
+    })();
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        window.location.href = 'login.html';
+    });
+
+    // ── LOAD PRODUCTS ────────────────────────────────────────────────────────
+    async function loadProducts() {
+        const { data: products, error } = await supabaseClient
+            .from('products')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        document.getElementById('loading-msg').classList.add('hidden');
+
+        if (error) {
+            document.getElementById('loading-msg').textContent = 'Error loading products: ' + error.message;
+            document.getElementById('loading-msg').classList.remove('hidden');
+            return;
+        }
+
+        if (!products || products.length === 0) {
+            document.getElementById('empty-msg').classList.remove('hidden');
+            return;
+        }
+
+        document.getElementById('products-table-wrap').classList.remove('hidden');
+        const tbody = document.getElementById('products-tbody');
+        tbody.innerHTML = '';
+
+        products.forEach(p => {
+            const stockBadge = p.stock_quantity === 0
+                ? '<span class="badge-out px-2 py-1 rounded text-xs">Out of stock</span>'
+                : p.stock_quantity <= 3
+                ? '<span class="badge-low px-2 py-1 rounded text-xs">Low stock (' + p.stock_quantity + ')</span>'
+                : '<span class="badge-instock px-2 py-1 rounded text-xs">In stock (' + p.stock_quantity + ')</span>';
+
+            const thumb = (p.images && p.images[0])
+                ? '<img src="' + p.images[0] + '" class="w-12 h-12 object-cover rounded"/>'
+                : '<div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center text-white/20 text-xs">—</div>';
+
+            const row = document.createElement('tr');
+            row.className = 'border-t border-white/5';
+            row.innerHTML = `
+                <td class="px-4 py-3">${thumb}</td>
+                <td class="px-4 py-3">
+                    <div class="font-medium">${escapeHtml(p.name)}</div>
+                    <div class="text-xs text-white/40">${escapeHtml(p.brand || '')}</div>
+                </td>
+                <td class="px-4 py-3 capitalize text-white/70">${p.category}</td>
+                <td class="px-4 py-3">Rs. ${Number(p.price).toLocaleString()}</td>
+                <td class="px-4 py-3">${stockBadge}</td>
+                <td class="px-4 py-3 capitalize text-white/70">${p.status}</td>
+                <td class="px-4 py-3 text-right whitespace-nowrap">
+                    <button class="edit-btn text-xs text-[#c9a6f5] hover:underline mr-3" data-id="${p.id}">Edit</button>
+                    <button class="delete-btn text-xs text-red-400 hover:underline" data-id="${p.id}">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        document.querySelectorAll('.edit-btn').forEach(btn =>
+            btn.addEventListener('click', () => openEditModal(btn.dataset.id, products)));
+        document.querySelectorAll('.delete-btn').forEach(btn =>
+            btn.addEventListener('click', () => deleteProduct(btn.dataset.id)));
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // ── MODAL OPEN/CLOSE ─────────────────────────────────────────────────────
+    const modal = document.getElementById('product-modal');
+    const form = document.getElementById('product-form');
+
+    document.getElementById('add-product-btn').addEventListener('click', () => {
+        form.reset();
+        document.getElementById('product-id').value = '';
+        document.getElementById('modal-title').textContent = 'Add Product';
+        document.getElementById('existing-images').innerHTML = '';
+        currentImages = [];
+        document.getElementById('form-error').classList.add('hidden');
+        modal.classList.add('open');
+    });
+
+    document.getElementById('close-modal-btn').addEventListener('click', () => modal.classList.remove('open'));
+    document.getElementById('cancel-btn').addEventListener('click', () => modal.classList.remove('open'));
+
+    function openEditModal(id, products) {
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+
+        document.getElementById('modal-title').textContent = 'Edit Product';
+        document.getElementById('product-id').value = p.id;
+        document.getElementById('p-name').value = p.name || '';
+        document.getElementById('p-brand').value = p.brand || '';
+        document.getElementById('p-category').value = p.category || 'laptop';
+        document.getElementById('p-price').value = p.price || '';
+        document.getElementById('p-discount-price').value = p.discount_price || '';
+        document.getElementById('p-stock').value = p.stock_quantity || 0;
+        document.getElementById('p-description').value = p.description || '';
+        document.getElementById('p-status').value = p.status || 'active';
+
+        const specs = p.specs || {};
+        document.getElementById('spec-processor').value = specs.processor || '';
+        document.getElementById('spec-ram').value = specs.ram || '';
+        document.getElementById('spec-storage').value = specs.storage || '';
+        document.getElementById('spec-screen').value = specs.screen || '';
+
+        currentImages = p.images || [];
+        const existingWrap = document.getElementById('existing-images');
+        existingWrap.innerHTML = currentImages.map(url =>
+            `<img src="${url}" class="w-14 h-14 object-cover rounded border border-white/10"/>`).join('');
+
+        document.getElementById('form-error').classList.add('hidden');
+        modal.classList.add('open');
+    }
+
+    // ── SAVE (INSERT OR UPDATE) ──────────────────────────────────────────────
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const saveBtn = document.getElementById('save-btn');
+        const errorMsg = document.getElementById('form-error');
+        errorMsg.classList.add('hidden');
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
+
+        try {
+            // Upload any newly selected photos to Storage first
+            const fileInput = document.getElementById('p-images');
+            const uploadedUrls = [];
+            for (const file of fileInput.files) {
+                const path = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+                const { error: uploadError } = await supabaseClient.storage
+                    .from('product-images')
+                    .upload(path, file);
+                if (uploadError) throw uploadError;
+
+                const { data: publicUrlData } = supabaseClient.storage
+                    .from('product-images')
+                    .getPublicUrl(path);
+                uploadedUrls.push(publicUrlData.publicUrl);
+            }
+
+            const allImages = [...currentImages, ...uploadedUrls];
+
+            const productData = {
+                name: document.getElementById('p-name').value.trim(),
+                brand: document.getElementById('p-brand').value.trim(),
+                category: document.getElementById('p-category').value,
+                price: parseFloat(document.getElementById('p-price').value),
+                discount_price: document.getElementById('p-discount-price').value
+                    ? parseFloat(document.getElementById('p-discount-price').value) : null,
+                stock_quantity: parseInt(document.getElementById('p-stock').value, 10),
+                description: document.getElementById('p-description').value.trim(),
+                status: document.getElementById('p-status').value,
+                specs: {
+                    processor: document.getElementById('spec-processor').value.trim(),
+                    ram: document.getElementById('spec-ram').value.trim(),
+                    storage: document.getElementById('spec-storage').value.trim(),
+                    screen: document.getElementById('spec-screen').value.trim(),
+                },
+                images: allImages,
+            };
+
+            const id = document.getElementById('product-id').value;
+            const { error } = id
+                ? await supabaseClient.from('products').update(productData).eq('id', id)
+                : await supabaseClient.from('products').insert(productData);
+
+            if (error) throw error;
+
+            modal.classList.remove('open');
+            document.getElementById('products-table-wrap').classList.add('hidden');
+            document.getElementById('empty-msg').classList.add('hidden');
+            document.getElementById('loading-msg').classList.remove('hidden');
+            document.getElementById('loading-msg').textContent = 'Loading products...';
+            loadProducts();
+
+        } catch (err) {
+            errorMsg.textContent = 'Error: ' + err.message;
+            errorMsg.classList.remove('hidden');
+        } finally {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save Product';
+        }
+    });
+
+    // ── DELETE ───────────────────────────────────────────────────────────────
+    async function deleteProduct(id) {
+        if (!confirm('Delete this product? This cannot be undone.')) return;
+        const { error } = await supabaseClient.from('products').delete().eq('id', id);
+        if (error) {
+            alert('Error deleting: ' + error.message);
+            return;
+        }
+        loadProducts();
+    }
+</script>
+</body>
+</html>
