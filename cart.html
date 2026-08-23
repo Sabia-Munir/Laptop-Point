@@ -17,8 +17,17 @@
 </head>
 <body class="min-h-screen">
 
-<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center">
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center gap-4">
     <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="index.html" class="text-white/60 hover:text-white transition-colors">Home</a>
+        <a href="shop.html?type=laptops" class="text-white/60 hover:text-white transition-colors">Laptops</a>
+        <a href="shop.html?type=accessories" class="text-white/60 hover:text-white transition-colors">Accessories</a>
+    </nav>
+    <a id="account-link" href="account.html" class="hidden md:flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span id="account-label">Login</span>
+    </a>
 </header>
 
 <main class="max-w-3xl mx-auto px-6 py-10">
@@ -59,7 +68,10 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/cart.js"></script>
+<script src="assets/js/account.js"></script>
 <script>
     function render() {
         const cart = getCart();
@@ -112,7 +124,10 @@
         }));
     }
 
-    document.addEventListener('DOMContentLoaded', render);
+    document.addEventListener('DOMContentLoaded', () => {
+        render();
+        updateAccountLink();
+    });
 </script>
 </body>
 </html>

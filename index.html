@@ -223,8 +223,10 @@
 <body class="bg-background text-on-background font-body-md antialiased">
 <!-- TopAppBar -->
 <header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-none fixed top-0 w-full z-50">
-<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max mx-auto">
-<div class="relative">
+<div class="flex justify-between items-center gap-4 px-gutter py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<!-- Mobile-only menu button; desktop uses the nav links to the right instead -->
+<div class="relative md:hidden">
 <button id="nav-menu-btn" aria-label="Menu" aria-expanded="false" class="text-primary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
 </button>
@@ -233,19 +235,28 @@
 <a href="#laptops" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Laptops</a>
 <a href="#accessories" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Accessories</a>
 <a href="cart.html" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Cart</a>
+<a href="account.html" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">My Account</a>
 <a href="admin/login.html" class="block px-4 py-3 text-xs uppercase tracking-wide text-on-surface-variant/50 hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Admin</a>
 </nav>
 </div>
-<div class="flex flex-col items-center">
+<a href="#top" class="flex flex-col leading-tight">
 <span class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">
                 LAPTOP POINT
             </span>
 <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.3em] uppercase opacity-60 hidden sm:block">Premium Computing</span>
+</a>
 </div>
+<!-- Desktop nav links -->
+<nav class="hidden md:flex items-center gap-8">
+<a href="#top" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Home</a>
+<a href="shop.html?type=laptops" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Laptops</a>
+<a href="shop.html?type=accessories" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Accessories</a>
+</nav>
 <div class="flex items-center gap-5">
-<button aria-label="SEARCH" class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform font-label-sm text-label-sm uppercase">
-                SEARCH
-            </button>
+<a id="account-link" href="account.html" class="hidden md:flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">person</span>
+<span id="account-label">Login</span>
+</a>
 <a href="cart.html" aria-label="Cart" class="relative flex items-center text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined text-2xl">shopping_cart</span>
 <span id="cart-count" class="hidden absolute -top-2 -right-2 text-[10px] bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center">0</span>
@@ -572,6 +583,7 @@ requestAnimationFrame(animate);
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-client.js"></script>
     <script src="assets/js/cart.js"></script>
+<script src="assets/js/account.js"></script>
     <script src="assets/js/product-card.js"></script>
     <script>
         // Storefront product loading — reads from the public_products view, which
@@ -610,6 +622,7 @@ requestAnimationFrame(animate);
         document.addEventListener('DOMContentLoaded', () => {
             loadStorefrontProducts();
             updateCartCount();
+            updateAccountLink();
         });
 
         // ── Nav dropdown: click the hamburger to toggle, click outside or a
