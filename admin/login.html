@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Admin Login - Laptop Point</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+    body {
+        background-color: #0b1326;
+        color: #dae2fd;
+        font-family: 'Inter', sans-serif;
+    }
+    .glass-panel {
+        background: rgba(45, 52, 73, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand {
+        font-family: 'Geist', sans-serif;
+    }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+
+<div class="w-full max-w-sm glass-panel rounded-xl p-8">
+    <div class="text-center mb-8">
+        <div class="brand text-2xl font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</div>
+        <div class="text-xs tracking-[0.3em] uppercase text-white/40 mt-1">Admin Access</div>
+    </div>
+
+    <form id="login-form" class="space-y-4">
+        <div>
+            <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5" for="email">Email</label>
+            <input id="email" type="email" required autocomplete="username"
+                class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#a855f7]/60"
+                placeholder="you@laptoppoint.pk"/>
+        </div>
+        <div>
+            <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5" for="password">Password</label>
+            <input id="password" type="password" required autocomplete="current-password"
+                class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#a855f7]/60"
+                placeholder="••••••••"/>
+        </div>
+
+        <p id="error-msg" class="text-sm text-red-400 hidden"></p>
+
+        <button type="submit" id="submit-btn"
+            class="w-full bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+            Sign In
+        </button>
+    </form>
+
+    <a href="../index.html" class="block text-center text-xs text-white/40 hover:text-white/70 mt-6 transition-colors">← Back to storefront</a>
+</div>
+
+<script src="../assets/js/supabase-client.js"></script>
+<script>
+    // If already logged in, skip straight to the dashboard
+    supabaseClient.auth.getSession().then(({ data }) => {
+        if (data.session) window.location.href = 'dashboard.html';
+    });
+
+    const form = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMsg.classList.add('hidden');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            errorMsg.textContent = 'Incorrect email or password.';
+            errorMsg.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+            return;
+        }
+
+        window.location.href = 'dashboard.html';
+    });
+</script>
+</body>
+</html>
