@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Shop premium laptops and accessories at Laptop Point.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Product - Laptop Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms@0.5.10,container-queries@0.1.1"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel {
+        background: rgba(45, 52, 73, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand { font-family: 'Geist', sans-serif; }
+    .theme-tint { position: relative; }
+    .theme-tint img { filter: saturate(0.85) contrast(1.05) brightness(0.9); }
+    .theme-tint::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
+        mix-blend-mode: color; pointer-events: none;
+    }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center sticky top-0 bg-[#0b1326]/90 backdrop-blur z-30">
+    <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <a href="cart.html" class="flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-xl">shopping_cart</span>
+        <span id="cart-count" class="text-xs bg-primary/30 text-primary-fixed rounded-full px-1.5 py-0.5 hidden">0</span>
+    </a>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-10">
+    <a href="index.html" class="text-xs uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors">&larr; Back to store</a>
+
+    <div id="loading-msg" class="text-white/40 text-sm mt-8">Loading product...</div>
+    <div id="error-msg" class="text-red-400 text-sm mt-8 hidden">Product not found.</div>
+
+    <div id="product-content" class="hidden grid md:grid-cols-2 gap-10 mt-6">
+        <!-- Gallery -->
+        <div>
+            <div class="theme-tint rounded-xl overflow-hidden glass-panel h-96">
+                <img id="main-image" class="w-full h-full object-cover" src="" alt=""/>
+            </div>
+            <div id="thumbnail-row" class="flex gap-3 mt-3"></div>
+        </div>
+
+        <!-- Info -->
+        <div>
+            <span id="p-category" class="font-label-sm text-xs text-primary tracking-[0.2em] uppercase"></span>
+            <h1 id="p-name" class="font-headline-md text-3xl font-bold text-on-surface mt-2 mb-1"></h1>
+            <span id="p-brand" class="text-sm text-white/40"></span>
+
+            <div class="flex items-center gap-3 mt-5">
+                <span id="p-price" class="text-2xl font-bold text-tertiary"></span>
+                <span id="p-original-price" class="text-sm text-white/40 line-through hidden"></span>
+            </div>
+
+            <span id="p-availability" class="inline-block mt-3 px-3 py-1 rounded-full text-xs uppercase tracking-wide"></span>
+
+            <p id="p-description" class="text-white/70 mt-6 leading-relaxed"></p>
+
+            <div id="specs-table" class="glass-panel rounded-xl p-5 mt-6 space-y-2"></div>
+
+            <div class="flex items-center gap-4 mt-8">
+                <div class="flex items-center glass-panel rounded-lg">
+                    <button id="qty-minus" class="px-3 py-2 text-white/70 hover:text-white">−</button>
+                    <span id="qty-value" class="px-3 text-sm">1</span>
+                    <button id="qty-plus" class="px-3 py-2 text-white/70 hover:text-white">+</button>
+                </div>
+                <button id="add-to-cart-btn" class="flex-1 bg-gradient-to-r from-primary-container to-secondary-container text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+                    Add to Cart
+                </button>
+            </div>
+            <p id="added-msg" class="text-green-400 text-sm mt-3 hidden">Added to cart.</p>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/cart.js"></script>
+<script>
+    const availabilityStyle = {
+        in_stock: 'bg-green-500/15 text-green-400',
+        low_stock: 'bg-yellow-500/15 text-yellow-400',
+        out_of_stock: 'bg-red-500/15 text-red-400',
+    };
+    const availabilityText = {
+        in_stock: 'In Stock', low_stock: 'Low Stock', out_of_stock: 'Out of Stock',
+    };
+    const specLabels = { processor: 'Processor', ram: 'RAM', storage: 'Storage', screen: 'Screen' };
+
+    let currentProduct = null;
+    let qty = 1;
+
+    async function loadProduct() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        if (!id) {
+            showError();
+            return;
+        }
+
+        const { data: product, error } = await supabaseClient
+            .from('public_products')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (error || !product) {
+            showError();
+            return;
+        }
+
+        currentProduct = product;
+        renderProduct(product);
+    }
+
+    function showError() {
+        document.getElementById('loading-msg').classList.add('hidden');
+        document.getElementById('error-msg').classList.remove('hidden');
+    }
+
+    function renderProduct(p) {
+        document.getElementById('loading-msg').classList.add('hidden');
+        document.getElementById('product-content').classList.remove('hidden');
+
+        document.title = p.name + ' - Laptop Point';
+        document.getElementById('p-category').textContent = p.category;
+        document.getElementById('p-name').textContent = p.name;
+        document.getElementById('p-brand').textContent = p.brand || '';
+        document.getElementById('p-description').textContent = p.description || '';
+
+        const priceEl = document.getElementById('p-price');
+        const originalEl = document.getElementById('p-original-price');
+        if (p.discount_price) {
+            priceEl.textContent = 'Rs. ' + Number(p.discount_price).toLocaleString();
+            originalEl.textContent = 'Rs. ' + Number(p.price).toLocaleString();
+            originalEl.classList.remove('hidden');
+        } else {
+            priceEl.textContent = 'Rs. ' + Number(p.price).toLocaleString();
+        }
+
+        const availEl = document.getElementById('p-availability');
+        availEl.textContent = availabilityText[p.availability] || '';
+        availEl.className = 'inline-block mt-3 px-3 py-1 rounded-full text-xs uppercase tracking-wide ' + (availabilityStyle[p.availability] || '');
+
+        const images = (p.images && p.images.length) ? p.images : [''];
+        document.getElementById('main-image').src = images[0];
+        document.getElementById('main-image').alt = p.name;
+
+        const thumbRow = document.getElementById('thumbnail-row');
+        thumbRow.innerHTML = images.map((img, i) =>
+            `<button class="thumb w-16 h-16 rounded-lg overflow-hidden glass-panel ${i === 0 ? 'ring-2 ring-primary' : ''}" data-src="${img}">
+                <img src="${img}" class="w-full h-full object-cover"/>
+            </button>`
+        ).join('');
+        thumbRow.querySelectorAll('.thumb').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('main-image').src = btn.dataset.src;
+                thumbRow.querySelectorAll('.thumb').forEach(b => b.classList.remove('ring-2', 'ring-primary'));
+                btn.classList.add('ring-2', 'ring-primary');
+            });
+        });
+
+        const specs = p.specs || {};
+        const specsTable = document.getElementById('specs-table');
+        const rows = Object.entries(specs).filter(([k, v]) => v);
+        specsTable.innerHTML = rows.length
+            ? rows.map(([k, v]) => `
+                <div class="flex justify-between text-sm border-b border-white/5 pb-2 last:border-0 last:pb-0">
+                    <span class="text-white/40">${specLabels[k] || k}</span>
+                    <span class="text-white/90">${v}</span>
+                </div>`).join('')
+            : '<span class="text-white/30 text-sm">No specs listed.</span>';
+
+        if (p.availability === 'out_of_stock') {
+            document.getElementById('add-to-cart-btn').disabled = true;
+            document.getElementById('add-to-cart-btn').classList.add('opacity-40', 'cursor-not-allowed');
+            document.getElementById('add-to-cart-btn').textContent = 'Out of Stock';
+        }
+    }
+
+    document.getElementById('qty-minus').addEventListener('click', () => {
+        if (qty > 1) { qty--; document.getElementById('qty-value').textContent = qty; }
+    });
+    document.getElementById('qty-plus').addEventListener('click', () => {
+        qty++; document.getElementById('qty-value').textContent = qty;
+    });
+
+    document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+        if (!currentProduct || currentProduct.availability === 'out_of_stock') return;
+        addToCart(currentProduct, qty);
+        document.getElementById('added-msg').classList.remove('hidden');
+        updateCartCount();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProduct();
+        updateCartCount();
+    });
+</script>
+</body>
+</html>
