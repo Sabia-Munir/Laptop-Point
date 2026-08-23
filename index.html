@@ -447,19 +447,63 @@ requestAnimationFrame(animate);
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full flex flex-col items-center gap-stack-md py-stack-lg px-margin-mobile transition-all duration-200 mt-stack-lg">
-<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
+<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+
+    <!-- Brand + about -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
             LAPTOP POINT
         </div>
-<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">HARDWARE</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">SUPPORT</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">WARRANTY</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">COMMUNITY</a>
-</nav>
-<div class="font-body-md text-body-md text-secondary text-center mt-4 opacity-70">
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">
+            Premium laptops and accessories, hand-picked and backed by real support — no bait-and-switch, no fine print.
+        </p>
+    </div>
+
+    <!-- Visit us -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase mb-1">Visit Us</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=Khanapul+Dubai+Plaza" target="_blank" rel="noopener" class="flex items-start gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg mt-0.5">location_on</span>
+            <span>Khanapul, Dubai Plaza</span>
+        </a>
+        <a href="tel:03115245535" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg">call</span>
+            <span>0311-5245535</span>
+        </a>
+        <a href="https://wa.me/923115245535" target="_blank" rel="noopener" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg">chat</span>
+            <span>WhatsApp us</span>
+        </a>
+    </div>
+
+    <!-- Hours + map -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase mb-1">Store Hours</span>
+        <div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+            <span class="material-symbols-outlined text-lg">schedule</span>
+            <span>Mon – Sat, 10:00 AM – 10:00 PM</span>
+        </div>
+        <div class="w-full max-w-[280px] rounded-lg overflow-hidden border border-white/10 mt-2">
+            <iframe
+                title="Laptop Point location — Khanapul, Dubai Plaza"
+                src="https://www.google.com/maps?q=Khanapul+Dubai+Plaza&output=embed"
+                width="100%" height="140" style="border:0; filter: grayscale(1) invert(0.92) contrast(0.9);"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+</div>
+
+<div class="border-t border-white/5">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-md flex flex-col sm:flex-row justify-between items-center gap-3">
+        <div class="font-body-md text-body-md text-secondary opacity-70">
             © 2026 Laptop Point. Power that fits your world.
         </div>
+        <a href="admin/login.html" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Admin</a>
+    </div>
+</div>
 </footer>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
