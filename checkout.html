@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Checkout securely at Laptop Point — Cash on Delivery available.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Checkout - Laptop Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel { background: rgba(45, 52, 73, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .brand { font-family: 'Geist', sans-serif; }
+    .input-field {
+        width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: #dae2fd;
+    }
+    .input-field:focus { outline: none; border-color: rgba(168,85,247,0.6); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-white/10 px-6 py-4">
+    <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+</header>
+
+<main class="max-w-2xl mx-auto px-6 py-10">
+    <h1 class="text-2xl font-semibold mb-2">Checkout</h1>
+    <p class="text-sm text-white/40 mb-8">Cash on Delivery only for now — JazzCash / EasyPaisa online payment is coming soon.</p>
+
+    <div id="empty-notice" class="hidden glass-panel rounded-xl p-6 text-center text-white/40">
+        Your cart is empty. <a href="index.html" class="text-[#c9a6f5] hover:underline">Go shopping →</a>
+    </div>
+
+    <form id="checkout-form" class="space-y-5">
+        <div class="glass-panel rounded-xl p-5">
+            <h2 class="text-sm uppercase tracking-wide text-white/50 mb-4">Order Summary</h2>
+            <div id="order-items" class="space-y-2 text-sm"></div>
+            <div class="flex justify-between font-semibold mt-4 pt-4 border-t border-white/10">
+                <span>Total</span>
+                <span id="order-total">Rs. 0</span>
+            </div>
+        </div>
+
+        <div class="glass-panel rounded-xl p-5 space-y-4">
+            <h2 class="text-sm uppercase tracking-wide text-white/50">Shipping Details</h2>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Full Name</label>
+                <input id="c-name" type="text" required class="input-field"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Phone Number</label>
+                <input id="c-phone" type="tel" required class="input-field" placeholder="03XX-XXXXXXX"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Email (optional)</label>
+                <input id="c-email" type="email" class="input-field"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Delivery Address</label>
+                <textarea id="c-address" required rows="3" class="input-field"></textarea>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">City</label>
+                <input id="c-city" type="text" required class="input-field"/>
+            </div>
+        </div>
+
+        <div class="glass-panel rounded-xl p-5">
+            <h2 class="text-sm uppercase tracking-wide text-white/50 mb-3">Payment Method</h2>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-primary/40 bg-primary/5 cursor-pointer">
+                <input type="radio" name="payment" checked class="accent-[#a855f7]"/>
+                <span class="text-sm">Cash on Delivery</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-white/10 opacity-40 mt-2 cursor-not-allowed">
+                <input type="radio" name="payment" disabled/>
+                <span class="text-sm">JazzCash / EasyPaisa — Coming Soon</span>
+            </label>
+        </div>
+
+        <p id="form-error" class="text-sm text-red-400 hidden"></p>
+
+        <button type="submit" id="place-order-btn" class="w-full bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+            Place Order (Cash on Delivery)
+        </button>
+    </form>
+
+    <div id="success-view" class="hidden text-center py-16">
+        <div class="text-2xl mb-3">✓</div>
+        <h2 class="text-xl font-semibold mb-2">Order placed!</h2>
+        <p class="text-white/50 mb-6">We'll contact you shortly to confirm delivery.</p>
+        <a href="index.html" class="text-sm text-[#c9a6f5] hover:underline">Back to store →</a>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/cart.js"></script>
+<script>
+    function renderSummary() {
+        const cart = getCart();
+        if (cart.length === 0) {
+            document.getElementById('empty-notice').classList.remove('hidden');
+            document.getElementById('checkout-form').classList.add('hidden');
+            return;
+        }
+        document.getElementById('order-items').innerHTML = cart.map(item => `
+            <div class="flex justify-between text-white/70">
+                <span>${item.name} × ${item.quantity}</span>
+                <span>Rs. ${(item.price * item.quantity).toLocaleString()}</span>
+            </div>`).join('');
+        document.getElementById('order-total').textContent = 'Rs. ' + cartTotal().toLocaleString();
+    }
+
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('place-order-btn');
+        const errorMsg = document.getElementById('form-error');
+        errorMsg.classList.add('hidden');
+        btn.disabled = true;
+        btn.textContent = 'Placing order...';
+
+        const cart = getCart();
+        const orderData = {
+            items: cart.map(item => ({
+                product_id: item.id, name: item.name,
+                quantity: item.quantity, price_at_order: item.price
+            })),
+            total_amount: cartTotal(),
+            payment_method: 'cod',
+            payment_status: 'pending',
+            order_status: 'pending',
+            shipping_address: {
+                name: document.getElementById('c-name').value.trim(),
+                phone: document.getElementById('c-phone').value.trim(),
+                email: document.getElementById('c-email').value.trim(),
+                address: document.getElementById('c-address').value.trim(),
+                city: document.getElementById('c-city').value.trim(),
+            },
+        };
+
+        const { error } = await supabaseClient.from('orders').insert(orderData);
+
+        if (error) {
+            errorMsg.textContent = 'Could not place order: ' + error.message;
+            errorMsg.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Place Order (Cash on Delivery)';
+            return;
+        }
+
+        clearCart();
+        document.getElementById('checkout-form').classList.add('hidden');
+        document.getElementById('success-view').classList.remove('hidden');
+    });
+
+    document.addEventListener('DOMContentLoaded', renderSummary);
+</script>
+</body>
+</html>
