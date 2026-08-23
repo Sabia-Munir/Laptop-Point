@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shop - Laptop Point</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel { background: rgba(45, 52, 73, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .neon-border {
+        border: 1px solid transparent;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+        transition: all 0.3s ease;
+    }
+    .neon-border:hover { box-shadow: 0 0 12px rgba(168, 85, 247, 0.2); transform: translateY(-2px); }
+    .brand { font-family: 'Geist', sans-serif; }
+    .theme-tint { position: relative; }
+    .theme-tint img { filter: saturate(0.85) contrast(1.05) brightness(0.9); }
+    .theme-tint::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
+        mix-blend-mode: color; pointer-events: none;
+    }
+    .input-field {
+        width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: #dae2fd;
+    }
+    .input-field:focus { outline: none; border-color: rgba(168,85,247,0.6); }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="bg-[#0b1326]/90 backdrop-blur-xl border-b border-white/10 sticky top-0 z-30 px-6 py-4 flex justify-between items-center">
+    <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <a href="cart.html" class="relative flex items-center text-white/70 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+        <span id="cart-count" class="hidden absolute -top-2 -right-2 text-[10px] bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center">0</span>
+    </a>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+    <a href="index.html" class="text-xs uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors">&larr; Back to store</a>
+    <h1 id="page-title" class="text-3xl font-bold mt-3 mb-6">Shop</h1>
+
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Filter sidebar -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <div class="glass-panel rounded-xl p-5 md:sticky md:top-24">
+                <h2 class="text-sm uppercase tracking-wide text-white/50 mb-4">Price Range (Rs.)</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-white/40 mb-1">Min</label>
+                        <input id="price-min" type="number" min="0" placeholder="0" class="input-field"/>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-white/40 mb-1">Max</label>
+                        <input id="price-max" type="number" min="0" placeholder="No limit" class="input-field"/>
+                    </div>
+                </div>
+                <button id="apply-filter-btn" class="w-full mt-4 bg-gradient-to-r from-primary-container to-secondary-container bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+                    Apply
+                </button>
+                <button id="clear-filter-btn" class="w-full mt-2 text-xs text-white/40 hover:text-white/70 transition-colors">
+                    Clear filter
+                </button>
+            </div>
+        </aside>
+
+        <!-- Results -->
+        <div class="flex-1">
+            <div id="loading-msg" class="text-white/40 text-sm">Loading products...</div>
+            <div id="empty-msg" class="hidden text-white/40 text-sm">No products match this price range.</div>
+            <div id="results-count" class="text-xs text-white/40 mb-4 hidden"></div>
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/product-card.js"></script>
+<script>
+    const ACCESSORY_CATEGORIES = ['keyboard', 'mouse', 'headset', 'bag', 'other'];
+    let allProducts = [];
+
+    function getType() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('type') === 'accessories' ? 'accessories' : 'laptops';
+    }
+
+    function matchesType(p, type) {
+        return type === 'laptops' ? p.category === 'laptop' : ACCESSORY_CATEGORIES.includes(p.category);
+    }
+
+    function applyFilters() {
+        const type = getType();
+        const min = parseFloat(document.getElementById('price-min').value) || 0;
+        const maxInput = document.getElementById('price-max').value;
+        const max = maxInput ? parseFloat(maxInput) : Infinity;
+
+        const filtered = allProducts.filter(p => {
+            if (!matchesType(p, type)) return false;
+            const effectivePrice = p.discount_price || p.price;
+            return effectivePrice >= min && effectivePrice <= max;
+        });
+
+        const grid = document.getElementById('products-grid');
+        const countEl = document.getElementById('results-count');
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '';
+            document.getElementById('empty-msg').classList.remove('hidden');
+            countEl.classList.add('hidden');
+        } else {
+            document.getElementById('empty-msg').classList.add('hidden');
+            countEl.textContent = filtered.length + ' product' + (filtered.length === 1 ? '' : 's');
+            countEl.classList.remove('hidden');
+            grid.innerHTML = filtered.map(p => renderProductCard(p, false)).join('');
+        }
+    }
+
+    async function loadProducts() {
+        const type = getType();
+        document.getElementById('page-title').textContent = type === 'laptops' ? 'Laptops' : 'Gear & Accessories';
+        document.title = (type === 'laptops' ? 'Laptops' : 'Accessories') + ' - Laptop Point';
+
+        const { data, error } = await supabaseClient.from('public_products').select('*');
+
+        document.getElementById('loading-msg').classList.add('hidden');
+
+        if (error) {
+            document.getElementById('loading-msg').textContent = 'Could not load products.';
+            document.getElementById('loading-msg').classList.remove('hidden');
+            console.error(error);
+            return;
+        }
+
+        allProducts = data;
+        applyFilters();
+    }
+
+    document.getElementById('apply-filter-btn').addEventListener('click', applyFilters);
+    document.getElementById('clear-filter-btn').addEventListener('click', () => {
+        document.getElementById('price-min').value = '';
+        document.getElementById('price-max').value = '';
+        applyFilters();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProducts();
+        updateCartCount();
+    });
+</script>
+</body>
+</html>

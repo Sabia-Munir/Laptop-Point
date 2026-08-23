@@ -412,18 +412,18 @@ requestAnimationFrame(animate);
                 POWER WITHOUT LIMITS
             </h1>
 <h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-tertiary uppercase" id="text-stage-2">
-                ENGINEERED TO OUTPERFORM
+                GENUINE PRODUCTS, REAL SUPPORT
             </h1>
 <h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary-fixed uppercase" id="text-stage-3">
-                BUILT FOR WHAT'S NEXT
+                CASH ON DELIVERY, NATIONWIDE
             </h1>
 </div>
 <p class="font-body-lg text-body-lg text-on-surface-variant text-center max-w-xl mt-6 hero-enter" id="hero-subtext" style="transition-delay:0.5s;">
                 Premium laptops, peripherals and hardware engineered for work, play and everything between.
             </p>
 <div class="flex flex-wrap justify-center gap-4 mt-8 hero-enter" id="hero-ctas" style="transition-delay:0.8s;">
-<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all">Explore Laptops</button>
-<button class="border border-white/20 text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:border-primary/50 hover:bg-white/5 transition-all">Build Your Setup</button>
+<a href="shop.html?type=laptops" class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all text-center">Explore Laptops</a>
+<a href="shop.html?type=accessories" class="border border-white/20 text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:border-primary/50 hover:bg-white/5 transition-all text-center">Build Your Setup</a>
 </div>
 </div>
 <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-enter" id="scroll-indicator" style="transition-delay:1.8s;">
@@ -435,15 +435,21 @@ requestAnimationFrame(animate);
 <main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24">
 <!-- Laptops -->
 <section id="laptops" class="space-y-stack-lg fade-in-section scroll-mt-24">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Flagship Arsenal</h2>
+<div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Flagship Arsenal</h2>
+<a href="shop.html?type=laptops" class="font-label-sm text-label-sm text-primary uppercase tracking-wider hover:text-white transition-colors whitespace-nowrap">View All &rarr;</a>
+</div>
 <div id="laptops-loading" class="text-on-surface-variant text-sm">Loading laptops...</div>
-<div id="laptops-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"></div>
+<div id="laptops-grid" class="flex gap-gutter overflow-x-auto snap-x snap-mandatory pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0"></div>
 </section>
 <!-- Accessories -->
 <section id="accessories" class="space-y-stack-lg fade-in-section mt-stack-lg scroll-mt-24">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Gear &amp; Accessories</h2>
+<div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Gear &amp; Accessories</h2>
+<a href="shop.html?type=accessories" class="font-label-sm text-label-sm text-primary uppercase tracking-wider hover:text-white transition-colors whitespace-nowrap">View All &rarr;</a>
+</div>
 <div id="accessories-loading" class="text-on-surface-variant text-sm">Loading accessories...</div>
-<div id="accessories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"></div>
+<div id="accessories-grid" class="flex gap-gutter overflow-x-auto snap-x snap-mandatory pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0"></div>
 </section>
 </main>
 <!-- Footer -->
@@ -566,46 +572,13 @@ requestAnimationFrame(animate);
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-client.js"></script>
     <script src="assets/js/cart.js"></script>
+    <script src="assets/js/product-card.js"></script>
     <script>
         // Storefront product loading — reads from the public_products view, which
         // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
         // never the real stock_quantity number. See database/schema.sql.
+        // Card rendering itself lives in assets/js/product-card.js, shared with shop.html.
         const ACCESSORY_CATEGORIES = ['keyboard', 'mouse', 'headset', 'bag', 'other'];
-
-        const availabilityLabel = {
-            in_stock: '<span class="text-green-400">In Stock</span>',
-            low_stock: '<span class="text-yellow-400">Low Stock</span>',
-            out_of_stock: '<span class="text-red-400">Out of Stock</span>',
-        };
-
-        function productCardHTML(p) {
-            const img = (p.images && p.images[0]) || '';
-            const priceHTML = p.discount_price
-                ? `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.discount_price).toLocaleString()}</span>
-                   <span class="text-xs text-on-surface-variant line-through ml-1">Rs. ${Number(p.price).toLocaleString()}</span>`
-                : `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.price).toLocaleString()}</span>`;
-
-            return `
-            <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
-                <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint">
-                    <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${img}"/>
-                </div>
-                <div class="p-6 flex-grow flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3 pb-3 border-b border-white/10">
-                            <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase">${p.category}</span>
-                            <span class="text-xs uppercase tracking-wide">${availabilityLabel[p.availability] || ''}</span>
-                        </div>
-                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${p.name}</h3>
-                        <p class="font-body-md text-body-md text-on-surface-variant mb-6">${p.description || ''}</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-auto">
-                        ${priceHTML}
-                        <span class="flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">View <span class="material-symbols-outlined text-base">arrow_forward</span></span>
-                    </div>
-                </div>
-            </a>`;
-        }
 
         async function loadStorefrontProducts() {
             const { data: products, error } = await supabaseClient
@@ -626,12 +599,12 @@ requestAnimationFrame(animate);
             document.getElementById('accessories-loading').classList.add('hidden');
 
             document.getElementById('laptops-grid').innerHTML = laptops.length
-                ? laptops.map(productCardHTML).join('')
-                : '<p class="text-on-surface-variant text-sm col-span-full">No laptops available right now.</p>';
+                ? laptops.map(p => renderProductCard(p, true)).join('') + renderViewAllCard('shop.html?type=laptops')
+                : '<p class="text-on-surface-variant text-sm">No laptops available right now.</p>';
 
             document.getElementById('accessories-grid').innerHTML = accessories.length
-                ? accessories.map(productCardHTML).join('')
-                : '<p class="text-on-surface-variant text-sm col-span-full">No accessories available right now.</p>';
+                ? accessories.map(p => renderProductCard(p, true)).join('') + renderViewAllCard('shop.html?type=accessories')
+                : '<p class="text-on-surface-variant text-sm">No accessories available right now.</p>';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
