@@ -11,3 +11,5 @@ build/
 # these pull in hundreds of unrelated JS/CSS files and don't belong in the repo.
 *_files/
 *.download
+Untitled query*
+dashboard-update/
