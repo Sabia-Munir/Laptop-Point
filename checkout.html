@@ -122,25 +122,26 @@
         btn.textContent = 'Placing order...';
 
         const cart = getCart();
-        const orderData = {
-            items: cart.map(item => ({
+
+        // place_order is a database function (see database/place-order-function.sql)
+        // that inserts the order AND decrements stock in one atomic transaction —
+        // this stops two customers checking out the last unit at the same moment
+        // from both succeeding.
+        const { error } = await supabaseClient.rpc('place_order', {
+            p_items: cart.map(item => ({
                 product_id: item.id, name: item.name,
                 quantity: item.quantity, price_at_order: item.price
             })),
-            total_amount: cartTotal(),
-            payment_method: 'cod',
-            payment_status: 'pending',
-            order_status: 'pending',
-            shipping_address: {
+            p_total_amount: cartTotal(),
+            p_payment_method: 'cod',
+            p_shipping_address: {
                 name: document.getElementById('c-name').value.trim(),
                 phone: document.getElementById('c-phone').value.trim(),
                 email: document.getElementById('c-email').value.trim(),
                 address: document.getElementById('c-address').value.trim(),
                 city: document.getElementById('c-city').value.trim(),
             },
-        };
-
-        const { error } = await supabaseClient.from('orders').insert(orderData);
+        });
 
         if (error) {
             errorMsg.textContent = 'Could not place order: ' + error.message;
