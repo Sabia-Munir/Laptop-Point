@@ -60,13 +60,14 @@
 
 <script src="../assets/js/supabase-client.js"></script>
 <script>
-    // If already logged in AS AN ADMIN, skip straight to the dashboard. If
-    // logged in as a plain customer, don't redirect them into an admin area
-    // they can't use — just let the login form load normally underneath.
+    // If already logged in, route by role — admin goes straight to the
+    // dashboard, anyone else (including no admin access) goes to the
+    // customer account page instead of sitting on a login form while
+    // already signed in.
     supabaseClient.auth.getSession().then(async ({ data }) => {
         if (!data.session) return;
         const isAdmin = await checkIsAdmin();
-        if (isAdmin) window.location.href = 'dashboard.html';
+        window.location.href = isAdmin ? 'dashboard.html' : '../account.html?notice=not-admin';
     });
 
     async function checkIsAdmin() {
@@ -102,11 +103,10 @@
 
         const isAdmin = await checkIsAdmin();
         if (!isAdmin) {
-            await supabaseClient.auth.signOut();
-            errorMsg.innerHTML = 'This account doesn\'t have admin access. <a href="../account.html" class="underline hover:text-red-300">Go to My Account instead &rarr;</a>';
-            errorMsg.classList.remove('hidden');
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Sign In';
+            // Valid credentials, just not an admin — keep them signed in and
+            // send them to the page that's actually for them instead of
+            // making them log in a second time.
+            window.location.href = '../account.html?notice=not-admin';
             return;
         }
 
