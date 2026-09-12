@@ -62,7 +62,15 @@
 </header>
 
 <main id="main-content" class="max-w-5xl mx-auto px-6 py-10" role="main">
-    <a href="index.html" class="text-xs uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors">&larr; Back to store</a>
+    <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex items-center gap-2 text-xs uppercase tracking-wider">
+            <li><a href="index.html" class="text-white/40 hover:text-white/70 transition-colors">Home</a></li>
+            <li class="text-white/20">/</li>
+            <li id="bc-shop"><a href="shop.html" class="text-white/40 hover:text-white/70 transition-colors">Shop</a></li>
+            <li class="text-white/20">/</li>
+            <li id="bc-product" class="text-white/60"></li>
+        </ol>
+    </nav>
 
     <div id="loading-msg" class="mt-8 grid md:grid-cols-2 gap-10">
         <div><div class="skeleton skeleton-image rounded-xl h-96"></div><div class="flex gap-3 mt-3"><div class="skeleton w-16 h-16 rounded-lg"></div><div class="skeleton w-16 h-16 rounded-lg"></div><div class="skeleton w-16 h-16 rounded-lg"></div></div></div>
@@ -185,6 +193,16 @@
         document.getElementById('product-content').classList.remove('hidden');
 
         document.title = p.name + ' - Laptop Point';
+        
+        // Update breadcrumb
+        const bcShop = document.getElementById('bc-shop');
+        const bcProduct = document.getElementById('bc-product');
+        if (bcShop) {
+            const shopUrl = p.category === 'laptop' ? 'shop.html?type=laptops' : 'shop.html?type=accessories';
+            bcShop.innerHTML = '<a href="' + shopUrl + '" class="text-white/40 hover:text-white/70 transition-colors">' + (p.category === 'laptop' ? 'Laptops' : 'Accessories') + '</a>';
+        }
+        if (bcProduct) bcProduct.textContent = p.name;
+        
         document.getElementById('p-category').textContent = p.category;
         document.getElementById('p-name').textContent = p.name;
         document.getElementById('p-brand').textContent = p.brand || '';
