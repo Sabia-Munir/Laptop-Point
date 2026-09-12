@@ -1,0 +1,43 @@
+/* Loading skeleton animation for Laptop Point */
+
+.skeleton {
+    background: linear-gradient(90deg, 
+        rgba(45, 52, 73, 0.4) 25%, 
+        rgba(45, 52, 73, 0.7) 50%, 
+        rgba(45, 52, 73, 0.4) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: 0.5rem;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-text-sm {
+    height: 0.75rem;
+    width: 60%;
+}
+
+.skeleton-image {
+    height: 16rem;
+    width: 100%;
+}
+
+.skeleton-avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+}
+
+.skeleton-btn {
+    height: 2.5rem;
+    width: 8rem;
+}
