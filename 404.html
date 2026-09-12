@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Page Not Found - Laptop Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/accessibility.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel { background: rgba(45, 52, 73, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .brand { font-family: 'Geist', sans-serif; }
+    .glitch { animation: glitch 2s infinite; }
+    @keyframes glitch {
+        0%, 100% { text-shadow: 2px 0 #a855f7, -2px 0 #3b82f6; }
+        25% { text-shadow: -2px 0 #a855f7, 2px 0 #3b82f6; }
+        50% { text-shadow: 2px 2px #a855f7, -2px -2px #3b82f6; }
+        75% { text-shadow: -2px 2px #a855f7, 2px -2px #3b82f6; }
+    }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+
+<main class="text-center max-w-lg" role="main">
+    <div class="mb-8">
+        <span class="material-symbols-outlined text-[120px] text-white/10">error_outline</span>
+    </div>
+    
+    <h1 class="brand text-8xl font-extrabold text-[#ddb7ff] tracking-tighter glitch mb-4">404</h1>
+    
+    <h2 class="text-xl font-semibold mb-3">Page Not Found</h2>
+    
+    <p class="text-white/50 mb-8 leading-relaxed">
+        The page you're looking for doesn't exist or has been moved. 
+        Let's get you back on track.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="index.html" class="bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white px-6 py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all text-center">
+            Back to Home
+        </a>
+        <a href="shop.html" class="border border-white/20 text-white/70 px-6 py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:bg-white/5 transition-all text-center">
+            Browse Shop
+        </a>
+    </div>
+    
+    <div class="mt-12 glass-panel rounded-xl p-6 text-left">
+        <h3 class="text-sm uppercase tracking-wider text-white/50 mb-3">Quick Links</h3>
+        <div class="grid grid-cols-2 gap-2">
+            <a href="shop.html?type=laptops" class="text-sm text-white/40 hover:text-white/70 transition-colors">Laptops</a>
+            <a href="shop.html?type=accessories" class="text-sm text-white/40 hover:text-white/70 transition-colors">Accessories</a>
+            <a href="cart.html" class="text-sm text-white/40 hover:text-white/70 transition-colors">Cart</a>
+            <a href="account.html" class="text-sm text-white/40 hover:text-white/70 transition-colors">My Account</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
