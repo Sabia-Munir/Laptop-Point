@@ -1,0 +1,64 @@
+/* Mobile-specific improvements for Laptop Point */
+
+/* Ensure minimum touch target size of 44x44px for WCAG compliance */
+button, a, input, select, textarea {
+    min-height: 44px;
+}
+
+/* Better mobile spacing */
+@media (max-width: 768px) {
+    .glass-panel {
+        margin: 0.5rem;
+    }
+    
+    /* Stack product cards on mobile */
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Larger touch targets on mobile */
+    .nav-item, .tab-btn, .filter-btn {
+        padding: 12px 16px;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Better form inputs on mobile */
+    input, select, textarea {
+        font-size: 16px !important; /* Prevents iOS zoom on focus */
+    }
+}
+
+/* Smooth scroll for mobile */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Touch-friendly hover states */
+@media (hover: none) and (pointer: coarse) {
+    .neon-border:hover {
+        transform: none;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+    }
+    
+    .group:hover .group-hover\:scale-110 {
+        transform: none;
+    }
+}
+
+/* Safe area padding for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    footer {
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+}
