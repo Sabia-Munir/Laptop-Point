@@ -226,8 +226,10 @@
       min-height: max(884px, 100dvh);
     }
   </style>
+<link rel="stylesheet" href="assets/css/accessibility.css"/>
 </head>
 <body class="bg-background text-on-background font-body-md antialiased">
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <!-- TopAppBar -->
 <header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-none fixed top-0 w-full z-50">
 <div class="flex justify-between items-center gap-4 px-gutter py-4 w-full max-w-container-max mx-auto">
@@ -450,7 +452,7 @@ requestAnimationFrame(animate);
 </div>
 </section>
 <!-- Main Content -->
-<main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24">
+<main id="main-content" class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24" role="main">
 <!-- Laptops -->
 <section id="laptops" class="space-y-stack-lg fade-in-section scroll-mt-24">
 <div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2">

@@ -13,6 +13,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/accessibility.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
     body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
@@ -27,13 +28,14 @@
 </style>
 </head>
 <body class="min-h-screen">
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center">
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center" role="banner">
     <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
     <a href="index.html" class="text-xs uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors">&larr; Back to store</a>
 </header>
 
-<main class="max-w-md mx-auto px-6 py-14">
+<main id="main-content" class="max-w-md mx-auto px-6 py-14" role="main">
 
     <p id="notice-banner" class="hidden text-sm text-yellow-300 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-4 py-3 mb-6">
         That account doesn't have admin access — here's your account instead.
