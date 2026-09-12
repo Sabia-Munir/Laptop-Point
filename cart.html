@@ -79,6 +79,7 @@
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/account.js"></script>
+<script src="assets/js/toast.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script>
@@ -128,8 +129,12 @@
             render();
         }));
         container.querySelectorAll('.remove-btn').forEach(btn => btn.addEventListener('click', () => {
+            const item = getCart().find(i => i.id === btn.dataset.id);
             removeFromCart(btn.dataset.id);
             render();
+            if (typeof Toast !== 'undefined' && item) {
+                Toast.info(`${item.name} removed from cart`);
+            }
         }));
     }
 

@@ -132,6 +132,7 @@
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/account.js"></script>
+<script src="assets/js/toast.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script>
@@ -251,6 +252,9 @@
         addToCart(currentProduct, qty);
         document.getElementById('added-msg').classList.remove('hidden');
         updateCartCount();
+        if (typeof Toast !== 'undefined') {
+            Toast.success(`${currentProduct.name} added to cart`);
+        }
     });
 
     document.addEventListener('DOMContentLoaded', () => {
