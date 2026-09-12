@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Sign in or create an account at Laptop Point to track your orders.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>My Account - Laptop Point</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel { background: rgba(45, 52, 73, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .brand { font-family: 'Geist', sans-serif; }
+    .input-field {
+        width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.5rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: #dae2fd;
+    }
+    .input-field:focus { outline: none; border-color: rgba(168,85,247,0.6); }
+    .tab-btn.active { color: #ddb7ff; border-color: #a855f7; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center">
+    <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <a href="index.html" class="text-xs uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors">&larr; Back to store</a>
+</header>
+
+<main class="max-w-md mx-auto px-6 py-14">
+
+    <p id="notice-banner" class="hidden text-sm text-yellow-300 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-4 py-3 mb-6">
+        That account doesn't have admin access — here's your account instead.
+    </p>
+
+    <div id="auth-section">
+        <h1 class="text-2xl font-semibold mb-6 text-center">My Account</h1>
+
+        <div class="flex border-b border-white/10 mb-6">
+            <button id="tab-login" class="tab-btn active flex-1 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors">Log In</button>
+            <button id="tab-signup" class="tab-btn flex-1 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors">Sign Up</button>
+        </div>
+
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Email</label>
+                <input id="login-email" type="email" required autocomplete="username" class="input-field" placeholder="you@example.com"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Password</label>
+                <input id="login-password" type="password" required autocomplete="current-password" class="input-field" placeholder="********"/>
+            </div>
+            <p id="login-error" class="text-sm text-red-400 hidden"></p>
+            <button type="submit" id="login-btn" class="w-full bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+                Log In
+            </button>
+        </form>
+
+        <form id="signup-form" class="space-y-4 hidden">
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Full Name</label>
+                <input id="signup-name" type="text" required class="input-field" placeholder="Your name"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Email</label>
+                <input id="signup-email" type="email" required autocomplete="username" class="input-field" placeholder="you@example.com"/>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Password</label>
+                <input id="signup-password" type="password" required minlength="6" autocomplete="new-password" class="input-field" placeholder="At least 6 characters"/>
+            </div>
+            <p id="signup-error" class="text-sm text-red-400 hidden"></p>
+            <p id="signup-success" class="text-sm text-green-400 hidden"></p>
+            <button type="submit" id="signup-btn" class="w-full bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+                Create Account
+            </button>
+        </form>
+    </div>
+
+    <div id="account-section" class="hidden max-w-2xl">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-semibold">Hi, <span id="account-name">there</span></h1>
+                <p class="text-sm text-white/40" id="account-email"></p>
+            </div>
+            <button id="logout-btn" class="text-xs uppercase tracking-wider text-white/50 hover:text-white transition-colors border border-white/15 rounded-lg px-4 py-2">
+                Log Out
+            </button>
+        </div>
+
+        <h2 class="text-sm uppercase tracking-wide text-white/50 mb-3">Order History</h2>
+        <div id="orders-loading" class="text-white/40 text-sm">Loading your orders...</div>
+        <div id="orders-empty" class="hidden text-white/40 text-sm">
+            No orders yet -- once you check out, they'll show up here.
+        </div>
+        <div id="orders-list" class="space-y-3"></div>
+    </div>
+
+</main>
+
+<script src="assets/js/supabase-client.js"></script>
+<script>
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+
+    tabLogin.addEventListener('click', () => {
+        tabLogin.classList.add('active');
+        tabSignup.classList.remove('active');
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+    });
+    tabSignup.addEventListener('click', () => {
+        tabSignup.classList.add('active');
+        tabLogin.classList.remove('active');
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorEl = document.getElementById('login-error');
+        const btn = document.getElementById('login-btn');
+        errorEl.classList.add('hidden');
+        btn.disabled = true;
+        btn.textContent = 'Logging in...';
+
+        const { error } = await supabaseClient.auth.signInWithPassword({
+            email: document.getElementById('login-email').value.trim(),
+            password: document.getElementById('login-password').value,
+        });
+
+        if (error) {
+            errorEl.textContent = 'Incorrect email or password.';
+            errorEl.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Log In';
+            return;
+        }
+        showAccountView();
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorEl = document.getElementById('signup-error');
+        const successEl = document.getElementById('signup-success');
+        const btn = document.getElementById('signup-btn');
+        errorEl.classList.add('hidden');
+        successEl.classList.add('hidden');
+        btn.disabled = true;
+        btn.textContent = 'Creating account...';
+
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: document.getElementById('signup-email').value.trim(),
+            password: document.getElementById('signup-password').value,
+            options: { data: { full_name: document.getElementById('signup-name').value.trim() } },
+        });
+
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+
+        if (error) {
+            errorEl.textContent = error.message;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        if (data.session) {
+            showAccountView();
+        } else {
+            successEl.textContent = 'Account created! Check your email to confirm, then log in.';
+            successEl.classList.remove('hidden');
+            signupForm.reset();
+        }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        document.getElementById('account-section').classList.add('hidden');
+        document.getElementById('auth-section').classList.remove('hidden');
+        loginForm.reset();
+    });
+
+    function orderStatusColor(status) {
+        return {
+            pending: 'text-yellow-400', packed: 'text-blue-400', shipped: 'text-blue-400',
+            delivered: 'text-green-400', cancelled: 'text-red-400',
+        }[status] || 'text-white/50';
+    }
+
+    function renderOrder(order) {
+        const items = order.items || [];
+        const date = new Date(order.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        const itemsSummary = items.map(i => i.quantity + '\u00d7 ' + i.name).join(', ');
+        return '<div class="glass-panel rounded-xl p-4">'
+            + '<div class="flex justify-between items-start mb-2">'
+            + '<div><div class="text-sm font-medium">Order #' + order.id.slice(0, 8) + '</div>'
+            + '<div class="text-xs text-white/40">' + date + '</div></div>'
+            + '<span class="text-xs uppercase tracking-wide ' + orderStatusColor(order.order_status) + '">' + order.order_status + '</span>'
+            + '</div>'
+            + '<p class="text-sm text-white/60 mb-2">' + itemsSummary + '</p>'
+            + '<div class="text-sm font-mono text-tertiary">Rs. ' + Number(order.total_amount).toLocaleString() + '</div>'
+            + '</div>';
+    }
+
+    async function loadOrders() {
+        const { data: orders, error } = await supabaseClient
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        document.getElementById('orders-loading').classList.add('hidden');
+
+        if (error) {
+            document.getElementById('orders-loading').textContent = 'Could not load orders.';
+            document.getElementById('orders-loading').classList.remove('hidden');
+            return;
+        }
+
+        if (!orders || orders.length === 0) {
+            document.getElementById('orders-empty').classList.remove('hidden');
+            return;
+        }
+
+        document.getElementById('orders-list').innerHTML = orders.map(renderOrder).join('');
+    }
+
+    async function showAccountView() {
+        const { data: userData } = await supabaseClient.auth.getUser();
+        const user = userData && userData.user;
+        if (!user) return;
+
+        // Admin accounts belong on the dashboard, not the customer order
+        // history page — send them straight there instead of making them
+        // hunt for a separate admin URL.
+        const { data: profile } = await supabaseClient
+            .from('profiles').select('role').eq('id', user.id).single();
+        if (profile && profile.role === 'admin') {
+            window.location.href = 'admin/dashboard.html';
+            return;
+        }
+
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('account-section').classList.remove('hidden');
+        document.getElementById('account-email').textContent = user.email;
+        document.getElementById('account-name').textContent = (user.user_metadata && user.user_metadata.full_name) || 'there';
+
+        loadOrders();
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        if (new URLSearchParams(window.location.search).get('notice') === 'not-admin') {
+            document.getElementById('notice-banner').classList.remove('hidden');
+        }
+        const { data } = await supabaseClient.auth.getSession();
+        if (data.session) showAccountView();
+    });
+</script>
+</body>
+</html>

@@ -6,3 +6,10 @@ node_modules/
 dist/
 build/
 *.log
+
+# Browser "Save Page As" exports (e.g. a saved Supabase dashboard page) —
+# these pull in hundreds of unrelated JS/CSS files and don't belong in the repo.
+*_files/
+*.download
+Untitled query*
+dashboard-update/

@@ -3,6 +3,8 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Laptop Point — premium laptops, keyboards, mice, and accessories in Pakistan. Fast, secure checkout with Cash on Delivery.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
 <title>Laptop Point - Premium Laptops & Accessories</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -122,8 +124,8 @@
         }
         
         .neon-border:hover {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
-            transform: scale(1.02);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+            transform: translateY(-2px);
         }
         
         .hero-text-container {
@@ -157,8 +159,62 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* THEME-TINT: apply this class to any <img> (product photos, new uploads,
+           anything) and it automatically renders with the site's purple/blue neon
+           mood — no manual photo editing needed per upload. To retint the whole
+           site later, only these two rules need to change. */
+        .theme-tint {
+            position: relative;
+        }
+        .theme-tint img {
+            filter: saturate(0.85) contrast(1.05) brightness(0.9);
+        }
+        .theme-tint::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
+            mix-blend-mode: color;
+            pointer-events: none;
+        }
+
+        /* HERO ENTRANCE: elements start invisible/offset, then get .is-visible added
+           once on page load. Each one has its own transition-delay set inline, so
+           they arrive in a deliberate sequence instead of all popping in at once. */
+        .hero-enter {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .hero-enter.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating spec callouts around the laptop — gentle drift, not a spin */
+        .spec-badge {
+            animation: spec-float 4s ease-in-out infinite;
+        }
+        .spec-badge.delay-1 { animation-delay: 0.3s; }
+        .spec-badge.delay-2 { animation-delay: 0.9s; }
+        .spec-badge.delay-3 { animation-delay: 1.5s; }
+        @keyframes spec-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .scroll-line {
+            animation: scroll-line-pulse 1.8s ease-in-out infinite;
+            transform-origin: top;
+        }
+        @keyframes scroll-line-pulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
     </style>
 <style>
+    html { scroll-behavior: smooth; }
     body {
       min-height: max(884px, 100dvh);
     }
@@ -167,28 +223,68 @@
 <body class="bg-background text-on-background font-body-md antialiased">
 <!-- TopAppBar -->
 <header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-none fixed top-0 w-full z-50">
-<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max mx-auto">
-<button aria-label="Menu" class="text-primary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<div class="flex justify-between items-center gap-4 px-gutter py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<!-- Mobile-only menu button; desktop uses the nav links to the right instead -->
+<div class="relative md:hidden">
+<button id="nav-menu-btn" aria-label="Menu" aria-expanded="false" class="text-primary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
 </button>
-<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">
+<nav id="nav-menu-panel" class="hidden absolute left-0 top-full mt-3 w-48 rounded-xl bg-surface-container border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden z-50">
+<a href="#top" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors">Home</a>
+<a href="#laptops" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Laptops</a>
+<a href="#accessories" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Accessories</a>
+<a href="cart.html" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Cart</a>
+<a href="account.html" class="block px-4 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">My Account</a>
+<a href="admin/login.html" class="block px-4 py-3 text-xs uppercase tracking-wide text-on-surface-variant/50 hover:text-primary hover:bg-white/5 transition-colors border-t border-white/5">Admin</a>
+</nav>
+</div>
+<a href="#top" class="flex flex-col leading-tight">
+<span class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">
                 LAPTOP POINT
-            </div>
-<button aria-label="SEARCH" class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform font-label-sm text-label-sm uppercase">
-                SEARCH
-            </button>
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.3em] uppercase opacity-60 hidden sm:block">Premium Computing</span>
+</a>
+</div>
+<!-- Desktop nav links -->
+<nav class="hidden md:flex items-center gap-8">
+<a href="#top" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Home</a>
+<a href="shop.html?type=laptops" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Laptops</a>
+<a href="shop.html?type=accessories" class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">Accessories</a>
+</nav>
+<div class="flex items-center gap-5">
+<a id="account-link" href="account.html" class="hidden md:flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">person</span>
+<span id="account-label">Login</span>
+</a>
+<a href="cart.html" aria-label="Cart" class="relative flex items-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">shopping_cart</span>
+<span id="cart-count" class="hidden absolute -top-2 -right-2 text-[10px] bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center">0</span>
+</a>
+</div>
 </div>
 </header>
 <!-- Hero Section with 3D Scene -->
-<section class="relative w-full h-screen overflow-hidden">
+<section id="top" class="relative w-full h-screen overflow-hidden">
 <!-- STITCH_THREEJS_START:ANIMATION_3 class="absolute inset-0 w-full h-full object-cover" -->
 <div class="absolute inset-0 w-full h-full object-cover" style="display:block;">
-<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.125.0/examples/js/loaders/GLTFLoader.js"></script>
 <div id="threejs-container-ANIMATION_3" style="width:100%;height:100%"></div>
 <script>
 (function() {
   const container = document.getElementById('threejs-container-ANIMATION_3');
   const devicePixelRatio = window.devicePixelRatio || 1;
+
+  // THEME CONFIG — pulled straight from DESIGN.md. Change a color here and the
+  // hero lighting (and, once the real model is loaded, its glow) updates everywhere
+  // it's used below, instead of hunting through the script for stray hex codes.
+  const THEME = {
+    primary: 0xa855f7,   // electric violet — matches DESIGN.md "Primary"
+    secondary: 0x3b82f6, // technical blue — matches DESIGN.md "Secondary"
+    ambient: 0xffffff
+  };
+
   // Three.js Scene: Rotating 3D Laptop
 const width = container.clientWidth || window.innerWidth;
 const height = container.clientHeight || window.innerHeight;
@@ -202,50 +298,29 @@ renderer.setSize(width, height);
 renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
-// Simple Laptop Model using primitives
-const laptopGroup = new THREE.Group();
-
-// Screen (Top part)
-const screenGeometry = new THREE.BoxGeometry(4, 2.5, 0.1);
-const screenMaterial = new THREE.MeshPhongMaterial({ 
-    color: 0x111111,
-    emissive: 0x3b82f6,
-    emissiveIntensity: 0.2
+ const laptopGroup = new THREE.Group();
+ const loader = new THREE.GLTFLoader();
+ loader.load('assets/models/laptop.glb', (gltf) => {
+     const model = gltf.scene;
+     model.scale.set(15, 15, 15);        // resize until it fits the scene (try 0.5–3 as a starting range)
+     model.position.set(0, -1.5, 0);     // recenter if it loads off-screen
+     model.rotation.set(0, 0, 0);     // set a resting angle
+     laptopGroup.add(model);
+     scene.add(laptopGroup);
 });
-const screen = new THREE.Mesh(screenGeometry, screenMaterial);
-screen.position.y = 1.25;
-laptopGroup.add(screen);
+// ───────────────────────────────────────────────────────────────────────────
 
-// Screen Content (Glow)
-const contentGeometry = new THREE.PlaneGeometry(3.8, 2.3);
-const contentMaterial = new THREE.MeshBasicMaterial({ 
-    color: 0xa855f7,
-    transparent: true,
-    opacity: 0.8
-});
-const content = new THREE.Mesh(contentGeometry, contentMaterial);
-content.position.z = 0.06;
-content.position.y = 1.25;
-laptopGroup.add(content);
-
-// Keyboard/Base (Bottom part)
-const baseGeometry = new THREE.BoxGeometry(4, 0.2, 2.5);
-const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
-const base = new THREE.Mesh(baseGeometry, baseMaterial);
-base.position.y = 0;
-laptopGroup.add(base);
-
-scene.add(laptopGroup);
-
-// Lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+// Lighting — colors come from THEME above, so changing THEME.primary/secondary
+// updates both the model's glow (if it has emissive materials) and these lights
+// together, from one place.
+const ambientLight = new THREE.AmbientLight(THEME.ambient, 0.5);
 scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xa855f7, 1, 10);
+const pointLight = new THREE.PointLight(THEME.primary, 1, 10);
 pointLight.position.set(2, 2, 2);
 scene.add(pointLight);
 
-const blueLight = new THREE.PointLight(0x3b82f6, 1, 10);
+const blueLight = new THREE.PointLight(THEME.secondary, 1, 10);
 blueLight.position.set(-2, 2, 2);
 scene.add(blueLight);
 
@@ -255,13 +330,45 @@ window.addEventListener('scroll', () => {
     scrollY = window.scrollY;
 });
 
-function animate() {
+// Mouse parallax — normalized -1..1, drives a subtle laptop tilt toward the cursor
+let mouseX = 0, mouseY = 0;
+window.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+
+    // Layered parallax on the DOM elements behind/around the laptop — moves less
+    // than the laptop itself so everything reads as sitting at a different depth
+    const glow = document.getElementById('hero-glow');
+    if (glow) glow.style.transform = `translate(${mouseX * 20}px, ${mouseY * 10}px)`;
+    const heroContent = document.getElementById('hero-content');
+    if (heroContent) heroContent.style.transform = `translate(${mouseX * 4}px, ${mouseY * 2}px)`;
+});
+
+// Entrance animation — laptop scales in from nothing over ~1.2s on load, eased
+// out so it decelerates naturally instead of snapping to full size.
+let entranceStart = null;
+const ENTRANCE_DURATION = 1200;
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+function animate(timestamp) {
     requestAnimationFrame(animate);
-    
-    // Rotation based on time + scroll
-    laptopGroup.rotation.y += 0.01;
-    laptopGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.1 + (scrollY * 0.001);
-    
+
+    if (entranceStart === null) entranceStart = timestamp;
+    const elapsed = timestamp - entranceStart;
+    const entranceT = Math.min(elapsed / ENTRANCE_DURATION, 1);
+    const entranceScale = easeOutCubic(entranceT);
+    laptopGroup.scale.setScalar(entranceScale);
+
+    // Blend three motion sources: slow idle float, scroll-driven tilt, and the
+    // mouse parallax tilt — each subtle on its own, together they read as "alive"
+    const idleFloat = Math.sin(Date.now() * 0.001) * 0.1;
+    const mouseTiltX = -mouseY * 0.12;
+    const mouseTiltY = mouseX * 0.25;
+
+    laptopGroup.rotation.y += 0.006;
+    laptopGroup.rotation.y += mouseTiltY * 0.02;
+    laptopGroup.rotation.x = idleFloat + (scrollY * 0.001) + mouseTiltX;
+
     renderer.render(scene, camera);
 }
 
@@ -274,102 +381,156 @@ window.addEventListener('resize', () => {
     renderer.setSize(w, h);
 });
 
-animate();
+requestAnimationFrame(animate);
 
 })();
 </script>
 </div>
 <!-- STITCH_THREEJS_END:ANIMATION_3 -->
 <div class="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none"></div>
-<div class="hero-text-container z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0" id="hero-glow">
+<div class="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full bg-primary/15 blur-[100px]"></div>
+</div>
+<!-- Floating spec callouts -->
+<div class="hidden md:block absolute top-[26%] left-[6%] z-10 hero-enter" id="spec-1" style="transition-delay:1.0s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">RTX 5070</span>
+</div>
+</div>
+<div class="hidden md:block absolute top-[26%] right-[6%] z-10 hero-enter" id="spec-2" style="transition-delay:1.2s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(137,206,255,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">240Hz OLED</span>
+</div>
+</div>
+<div class="hidden md:block absolute bottom-[22%] left-[10%] z-10 hero-enter" id="spec-3" style="transition-delay:1.4s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-3">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(173,198,255,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">32GB DDR5</span>
+</div>
+</div>
+<div class="hidden md:block absolute bottom-[22%] right-[10%] z-10 hero-enter" id="spec-4" style="transition-delay:1.6s">
+<div class="glass-panel rounded-full px-4 py-2 flex items-center gap-2 spec-badge delay-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide">2TB NVMe</span>
+</div>
+</div>
+<div class="hero-text-container z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-col items-center" id="hero-content" style="pointer-events:auto;">
+<span class="font-label-sm text-label-sm text-tertiary tracking-[0.3em] uppercase mb-4 hero-enter" id="hero-eyebrow" style="transition-delay:0.2s;">Next-Gen Hardware</span>
+<div class="relative text-center w-full flex items-center justify-center min-h-[160px] sm:min-h-[130px] md:min-h-[170px]">
 <h1 class="scroll-text active font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary uppercase" id="text-stage-1">
-                LEVEL UP YOUR GEAR
+                POWER WITHOUT LIMITS
             </h1>
 <h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-tertiary uppercase" id="text-stage-2">
-                ELITE PERFORMANCE
+                GENUINE PRODUCTS, REAL SUPPORT
             </h1>
 <h1 class="scroll-text font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-center text-primary-fixed uppercase" id="text-stage-3">
-                UNMATCHED PRECISION
+                CASH ON DELIVERY, NATIONWIDE
             </h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-center max-w-xl mt-6 hero-enter" id="hero-subtext" style="transition-delay:0.5s;">
+                Premium laptops, peripherals and hardware engineered for work, play and everything between.
+            </p>
+<div class="flex flex-wrap justify-center gap-4 mt-8 hero-enter" id="hero-ctas" style="transition-delay:0.8s;">
+<a href="shop.html?type=laptops" class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all text-center">Explore Laptops</a>
+<a href="shop.html?type=accessories" class="border border-white/20 text-white px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:border-primary/50 hover:bg-white/5 transition-all text-center">Build Your Setup</a>
+</div>
+</div>
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-enter" id="scroll-indicator" style="transition-delay:1.8s;">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.25em] uppercase opacity-70">Scroll to Explore</span>
+<div class="w-px h-8 bg-gradient-to-b from-primary to-transparent scroll-line"></div>
 </div>
 </section>
 <!-- Main Content -->
 <main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg z-20 relative -mt-24">
-<!-- Featured Products Grids -->
-<section class="space-y-stack-lg fade-in-section">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md uppercase tracking-wide border-b border-white/10 pb-2 inline-block">Flagship Arsenal</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-<!-- Product 1: Titan G-15 Laptop -->
-<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
-<div class="h-64 w-full bg-surface-container relative overflow-hidden">
-<img alt="Titan G-15 Laptop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-end, futuristic gaming laptop sitting open on a dark obsidian desk. The laptop features sharp, angular metallic chassis with glowing neon purple accents along the edges and keyboard. The screen displays a complex, abstract cyberpunk cityscape. The lighting is low-key, dramatic, and moody, typical of a premium gamer-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZLwU1huY8Y26fLpHcPZnOdb0BKrDvRihO-9aFcxj10qYApqSUFtzGgRYm6NvT1-TowIvV7Y_T8PcqLU7dAXPW88JQ8M1PvjKXf94Xsjwe2GeVk7oA5WZn5NQVcauPeXBHkYynwHPOxZ_v4EhZN8Ym5trj54lNzdxkN1g6NrnVA1VKgyO7TZ66fWY6GM8wto8MNnvgmBLfTF603qveV7-NTfn5BPD5qt-l_rrP6InmsYKPNcfhbN8"/>
+<!-- Laptops -->
+<section id="laptops" class="space-y-stack-lg fade-in-section scroll-mt-24">
+<div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Flagship Arsenal</h2>
+<a href="shop.html?type=laptops" class="font-label-sm text-label-sm text-primary uppercase tracking-wider hover:text-white transition-colors whitespace-nowrap">View All &rarr;</a>
 </div>
-<div class="p-6 flex-grow flex flex-col justify-between">
-<div>
-<span class="inline-block bg-surface-container-highest text-primary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">System</span>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Titan G-15 Laptop</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Desktop-grade power compressed into a sleek, obsidian chassis. Engineered for relentless performance.</p>
+<div id="laptops-loading" class="text-on-surface-variant text-sm">Loading laptops...</div>
+<div id="laptops-grid" class="flex gap-gutter overflow-x-auto snap-x snap-mandatory pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0"></div>
+</section>
+<!-- Accessories -->
+<section id="accessories" class="space-y-stack-lg fade-in-section mt-stack-lg scroll-mt-24">
+<div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Gear &amp; Accessories</h2>
+<a href="shop.html?type=accessories" class="font-label-sm text-label-sm text-primary uppercase tracking-wider hover:text-white transition-colors whitespace-nowrap">View All &rarr;</a>
 </div>
-<div class="flex justify-between items-center mt-auto">
-<span class="font-body-lg text-body-lg font-bold text-tertiary">$2,499</span>
-<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all">Configure</button>
-</div>
-</div>
-</article>
-<!-- Product 2: Nova Mech Keyboard -->
-<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
-<div class="h-64 w-full bg-surface-container relative overflow-hidden">
-<img alt="Nova Mech Keyboard" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A premium mechanical gaming keyboard resting on a sleek dark surface. The keyboard has translucent keycaps revealing brilliant, customizable RGB lighting underneath, currently glowing in shades of neon blue and magenta. The casing is brushed black aluminum. The setting is dark and moody, reflecting a high-performance, cyberpunk-inspired setup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmwPuh_w85wfBLCQy2f7YK7s8jB3tHzxAb7AD9BbYQB70ILLumMQLLjKHp2duEgx0-YXZXNe0eWECw72fXcTspzPKwCm0GF4bSD0DzUlOEhC0rnf3x7voDv42zVyrOg0hX_SZibzkpyuAq-MYMW2ms7di5DjJLt5hAOHmivCcMTjUPkBrPUJGeoFUnlZxGZYCPaPcJRQTiDAhL_0eYv2i6WU7EAhysi_77Z-JyXe-AmgXsNkoLjng"/>
-</div>
-<div class="p-6 flex-grow flex flex-col justify-between">
-<div>
-<span class="inline-block bg-surface-container-highest text-tertiary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">Input</span>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Nova Mech Keyboard</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Tactile precision meets vibrant illumination. Custom optical switches for zero-latency response.</p>
-</div>
-<div class="flex justify-between items-center mt-auto">
-<span class="font-body-lg text-body-lg font-bold text-tertiary">$199</span>
-<button class="border border-secondary/50 text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:bg-secondary/10 transition-all">View Specs</button>
-</div>
-</div>
-</article>
-<!-- Product 3: Apex Wireless Mouse -->
-<article class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer">
-<div class="h-64 w-full bg-surface-container relative overflow-hidden">
-<img alt="Apex Wireless Mouse" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sleek, ergonomic wireless gaming mouse levitating slightly above a glowing mousepad. The mouse has a matte black finish with subtle geometric lines and a neon purple scroll wheel. The background is a deep, immersive dark void with faint grid patterns, emphasizing the high-tech, precise nature of the peripheral." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDANY-nLW7J6w9cB3N8-plOd9MvEbD3gRipEWnmkiyBnDlAptYkN9ScRtbCt4EeF97FKnTEMzg_IYD4fyQulhOPfe-B4_4kViWlFqmz3gjUBWp4_v4E94AG0mjSMDL0IZtDJFjsf5-3zsmYvf_paLij3hjIKpqJs9xXZp2JcQJ3xDAzxWOnMg99SCeV6rAJU0NAaEUbkgDs-zsWmgutFFinCaDV3zHO0BjFJZmNLBteswh70y7ICok"/>
-</div>
-<div class="p-6 flex-grow flex flex-col justify-between">
-<div>
-<span class="inline-block bg-surface-container-highest text-secondary font-label-sm text-label-sm px-2 py-1 rounded mb-4 uppercase">Peripheral</span>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Apex Wireless Mouse</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Sub-millisecond wireless technology paired with an ultra-lightweight exoskeleton design.</p>
-</div>
-<div class="flex justify-between items-center mt-auto">
-<span class="font-body-lg text-body-lg font-bold text-tertiary">$149</span>
-<button class="border border-secondary/50 text-white px-6 py-2 rounded-lg font-label-sm text-label-sm uppercase hover:bg-secondary/10 transition-all">View Specs</button>
-</div>
-</div>
-</article>
-</div>
+<div id="accessories-loading" class="text-on-surface-variant text-sm">Loading accessories...</div>
+<div id="accessories-grid" class="flex gap-gutter overflow-x-auto snap-x snap-mandatory pb-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0"></div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full flex flex-col items-center gap-stack-md py-stack-lg px-margin-mobile transition-all duration-200 mt-stack-lg">
-<div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
+<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+
+    <!-- Brand + about -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <div class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile text-primary">
             LAPTOP POINT
         </div>
-<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">HARDWARE</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">SUPPORT</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">WARRANTY</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:drop-shadow-[0_0_8px_rgba(221,183,255,0.6)] transition-all" href="#">COMMUNITY</a>
-</nav>
-<div class="font-body-md text-body-md text-secondary text-center mt-4 opacity-70">
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">
+            Premium laptops and accessories, hand-picked and backed by real support — no bait-and-switch, no fine print.
+        </p>
+    </div>
+
+    <!-- Visit us -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase mb-1">Visit Us</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=Khanapul+Dubai+Plaza" target="_blank" rel="noopener" class="flex items-start gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg mt-0.5">location_on</span>
+            <span>Khanapul, Dubai Plaza</span>
+        </a>
+        <a href="tel:03115245535" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg">call</span>
+            <span>0311-5245535</span>
+        </a>
+        <a href="https://wa.me/923115245535" target="_blank" rel="noopener" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg">chat</span>
+            <span>WhatsApp us</span>
+        </a>
+    </div>
+
+    <!-- Hours + map -->
+    <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
+        <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase mb-1">Store Hours</span>
+        <div class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
+            <span class="material-symbols-outlined text-lg">schedule</span>
+            <span>Mon – Sat, 10:00 AM – 10:00 PM</span>
+        </div>
+        <div class="w-full max-w-[280px] rounded-lg overflow-hidden border border-white/10 mt-2">
+            <iframe
+                title="Laptop Point location — Khanapul, Dubai Plaza"
+                src="https://www.google.com/maps?q=Khanapul+Dubai+Plaza&output=embed"
+                width="100%" height="140" style="border:0; filter: grayscale(1) invert(0.92) contrast(0.9);"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+</div>
+
+<div class="border-t border-white/5">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-md flex flex-col sm:flex-row justify-between items-center gap-3">
+        <div class="font-body-md text-body-md text-secondary opacity-70">
             © 2026 Laptop Point. Power that fits your world.
         </div>
+        <a href="admin/login.html" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Admin</a>
+    </div>
+</div>
 </footer>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Trigger the hero entrance sequence — each .hero-enter element has its
+            // own transition-delay set inline, so adding .is-visible to all of them
+            // at once still produces a staggered arrival, not a simultaneous pop-in.
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.hero-enter').forEach(el => el.classList.add('is-visible'));
+            });
+
             // Scroll-triggered text change logic
             const stages = [
                 document.getElementById('text-stage-1'),
@@ -417,6 +578,79 @@ animate();
             document.querySelectorAll('.fade-in-section').forEach(section => {
                 observer.observe(section);
             });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/cart.js"></script>
+<script src="assets/js/account.js"></script>
+    <script src="assets/js/product-card.js"></script>
+    <script>
+        // Storefront product loading — reads from the public_products view, which
+        // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
+        // never the real stock_quantity number. See database/schema.sql.
+        // Card rendering itself lives in assets/js/product-card.js, shared with shop.html.
+        const ACCESSORY_CATEGORIES = ['keyboard', 'mouse', 'headset', 'bag', 'other'];
+
+        async function loadStorefrontProducts() {
+            const { data: products, error } = await supabaseClient
+                .from('public_products')
+                .select('*');
+
+            if (error) {
+                document.getElementById('laptops-loading').textContent = 'Could not load products.';
+                document.getElementById('accessories-loading').textContent = '';
+                console.error(error);
+                return;
+            }
+
+            const laptops = products.filter(p => p.category === 'laptop');
+            const accessories = products.filter(p => ACCESSORY_CATEGORIES.includes(p.category));
+
+            document.getElementById('laptops-loading').classList.add('hidden');
+            document.getElementById('accessories-loading').classList.add('hidden');
+
+            document.getElementById('laptops-grid').innerHTML = laptops.length
+                ? laptops.map(p => renderProductCard(p, true)).join('') + renderViewAllCard('shop.html?type=laptops')
+                : '<p class="text-on-surface-variant text-sm">No laptops available right now.</p>';
+
+            document.getElementById('accessories-grid').innerHTML = accessories.length
+                ? accessories.map(p => renderProductCard(p, true)).join('') + renderViewAllCard('shop.html?type=accessories')
+                : '<p class="text-on-surface-variant text-sm">No accessories available right now.</p>';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStorefrontProducts();
+            updateCartCount();
+            updateAccountLink();
+        });
+
+        // ── Nav dropdown: click the hamburger to toggle, click outside or a
+        // link to close. Laptops/Accessories use native anchor scroll (the
+        // scroll-mt-24 class on those sections keeps them from hiding under
+        // the fixed header).
+        const navBtn = document.getElementById('nav-menu-btn');
+        const navPanel = document.getElementById('nav-menu-panel');
+
+        navBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !navPanel.classList.contains('hidden');
+            navPanel.classList.toggle('hidden');
+            navBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        navPanel.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navPanel.classList.add('hidden');
+                navBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navPanel.classList.contains('hidden') && !navPanel.contains(e.target) && e.target !== navBtn) {
+                navPanel.classList.add('hidden');
+                navBtn.setAttribute('aria-expanded', 'false');
+            }
         });
     </script>
 </body></html>

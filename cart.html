@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Your Laptop Point shopping cart.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
+<title>Your Cart - Laptop Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { background-color: #0b1326; color: #dae2fd; font-family: 'Inter', sans-serif; }
+    .glass-panel { background: rgba(45, 52, 73, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .brand { font-family: 'Geist', sans-serif; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<header class="border-b border-white/10 px-6 py-4 flex justify-between items-center gap-4">
+    <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="index.html" class="text-white/60 hover:text-white transition-colors">Home</a>
+        <a href="shop.html?type=laptops" class="text-white/60 hover:text-white transition-colors">Laptops</a>
+        <a href="shop.html?type=accessories" class="text-white/60 hover:text-white transition-colors">Accessories</a>
+    </nav>
+    <a id="account-link" href="account.html" class="hidden md:flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-xl">person</span>
+        <span id="account-label">Login</span>
+    </a>
+</header>
+
+<main class="max-w-3xl mx-auto px-6 py-10">
+    <h1 class="text-2xl font-semibold mb-6">Your Cart</h1>
+
+    <div id="empty-cart" class="hidden text-center py-16">
+        <p class="text-white/40 mb-4">Your cart is empty.</p>
+        <a href="index.html" class="text-sm text-[#c9a6f5] hover:underline">Continue shopping →</a>
+    </div>
+
+    <div id="cart-items" class="space-y-4"></div>
+
+    <div id="cart-summary" class="hidden glass-panel rounded-xl p-6 mt-6">
+        <div class="flex justify-between text-lg font-semibold mb-4">
+            <span>Total</span>
+            <span id="cart-total">Rs. 0</span>
+        </div>
+        <a href="checkout.html" class="block text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+            Proceed to Checkout
+        </a>
+    </div>
+</main>
+<footer class="border-t border-white/10 mt-16">
+    <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
+        <div class="flex items-center gap-4">
+            <a href="tel:03115245535" class="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+                <span class="material-symbols-outlined text-base">call</span> 0311-5245535
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Khanapul+Dubai+Plaza" target="_blank" rel="noopener" class="flex items-center gap-1.5 hover:text-white/70 transition-colors">
+                <span class="material-symbols-outlined text-base">location_on</span> Khanapul, Dubai Plaza
+            </a>
+            <span class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-base">schedule</span> Mon–Sat, 10AM–10PM
+            </span>
+        </div>
+        <div>© 2026 Laptop Point</div>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/account.js"></script>
+<script>
+    function render() {
+        const cart = getCart();
+        const container = document.getElementById('cart-items');
+
+        if (cart.length === 0) {
+            document.getElementById('empty-cart').classList.remove('hidden');
+            document.getElementById('cart-summary').classList.add('hidden');
+            container.innerHTML = '';
+            return;
+        }
+
+        document.getElementById('empty-cart').classList.add('hidden');
+        document.getElementById('cart-summary').classList.remove('hidden');
+
+        container.innerHTML = cart.map(item => `
+            <div class="glass-panel rounded-xl p-4 flex items-center gap-4">
+                <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover"/>
+                <div class="flex-1">
+                    <div class="font-medium">${item.name}</div>
+                    <div class="text-sm text-white/40">Rs. ${item.price.toLocaleString()}</div>
+                </div>
+                <div class="flex items-center glass-panel rounded-lg">
+                    <button class="qty-minus px-3 py-1.5 text-white/70 hover:text-white" data-id="${item.id}">−</button>
+                    <span class="px-3 text-sm">${item.quantity}</span>
+                    <button class="qty-plus px-3 py-1.5 text-white/70 hover:text-white" data-id="${item.id}">+</button>
+                </div>
+                <div class="w-24 text-right font-medium">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
+                <button class="remove-btn text-white/30 hover:text-red-400" data-id="${item.id}">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        `).join('');
+
+        document.getElementById('cart-total').textContent = 'Rs. ' + cartTotal().toLocaleString();
+
+        container.querySelectorAll('.qty-minus').forEach(btn => btn.addEventListener('click', () => {
+            const item = getCart().find(i => i.id === btn.dataset.id);
+            if (item) updateCartQuantity(btn.dataset.id, item.quantity - 1);
+            render();
+        }));
+        container.querySelectorAll('.qty-plus').forEach(btn => btn.addEventListener('click', () => {
+            const item = getCart().find(i => i.id === btn.dataset.id);
+            if (item) updateCartQuantity(btn.dataset.id, item.quantity + 1);
+            render();
+        }));
+        container.querySelectorAll('.remove-btn').forEach(btn => btn.addEventListener('click', () => {
+            removeFromCart(btn.dataset.id);
+            render();
+        }));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        render();
+        updateAccountLink();
+    });
+</script>
+</body>
+</html>
