@@ -21,7 +21,7 @@ function renderProductCard(p, fixedWidth) {
     return `
     <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass}">
         <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint">
-            <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${img}"/>
+            <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${img}"/>
         </div>
         <div class="p-6 flex-grow flex flex-col justify-between">
             <div>

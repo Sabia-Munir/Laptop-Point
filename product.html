@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
 <meta name="description" content="Shop premium laptops and accessories at Laptop Point.">
 <meta property="og:title" content="Product - Laptop Point"/>
 <meta property="og:description" content="Shop premium laptops and accessories at Laptop Point.">
@@ -66,7 +69,7 @@
         <!-- Gallery -->
         <div>
             <div class="theme-tint rounded-xl overflow-hidden glass-panel h-96">
-                <img id="main-image" class="w-full h-full object-cover" src="" alt=""/>
+                <img id="main-image" class="w-full h-full object-cover" loading="lazy" src="" alt=""/>
             </div>
             <div id="thumbnail-row" class="flex gap-3 mt-3"></div>
         </div>
@@ -198,7 +201,7 @@
         const thumbRow = document.getElementById('thumbnail-row');
         thumbRow.innerHTML = images.map((img, i) =>
             `<button class="thumb w-16 h-16 rounded-lg overflow-hidden glass-panel ${i === 0 ? 'ring-2 ring-primary' : ''}" data-src="${img}">
-                <img src="${img}" class="w-full h-full object-cover"/>
+                <img src="${img}" loading="lazy" class="w-full h-full object-cover"/>
             </button>`
         ).join('');
         thumbRow.querySelectorAll('.thumb').forEach(btn => {
