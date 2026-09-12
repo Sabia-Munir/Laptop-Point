@@ -80,6 +80,11 @@
         <!-- Filter sidebar -->
         <aside class="w-full md:w-64 flex-shrink-0">
             <div class="glass-panel rounded-xl p-5 md:sticky md:top-24">
+                <h2 class="text-sm uppercase tracking-wide text-white/50 mb-4">Search</h2>
+                <div class="relative mb-5">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-xl">search</span>
+                    <input id="search-input" type="text" placeholder="Search products..." class="input-field !pl-10"/>
+                </div>
                 <h2 class="text-sm uppercase tracking-wide text-white/50 mb-4">Price Range (Rs.)</h2>
                 <div class="space-y-3">
                     <div>
@@ -137,12 +142,17 @@
 
     function applyFilters() {
         const type = getType();
+        const query = (document.getElementById('search-input').value || '').trim().toLowerCase();
         const min = parseFloat(document.getElementById('price-min').value) || 0;
         const maxInput = document.getElementById('price-max').value;
         const max = maxInput ? parseFloat(maxInput) : Infinity;
 
         const filtered = allProducts.filter(p => {
             if (!matchesType(p, type)) return false;
+            if (query) {
+                const searchable = (p.name + ' ' + (p.brand || '') + ' ' + (p.description || '') + ' ' + p.category).toLowerCase();
+                if (!searchable.includes(query)) return false;
+            }
             const effectivePrice = p.discount_price || p.price;
             return effectivePrice >= min && effectivePrice <= max;
         });
@@ -185,10 +195,12 @@
 
     document.getElementById('apply-filter-btn').addEventListener('click', applyFilters);
     document.getElementById('clear-filter-btn').addEventListener('click', () => {
+        document.getElementById('search-input').value = '';
         document.getElementById('price-min').value = '';
         document.getElementById('price-max').value = '';
         applyFilters();
     });
+    document.getElementById('search-input').addEventListener('input', applyFilters);
 
     document.addEventListener('DOMContentLoaded', () => {
         loadProducts();
