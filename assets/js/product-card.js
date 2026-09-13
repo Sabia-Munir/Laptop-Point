@@ -37,6 +37,9 @@ function renderProductCard(p, fixedWidth) {
                 <span class="flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">View <span class="material-symbols-outlined text-base">arrow_forward</span></span>
             </div>
         </div>
+        <button class="quick-view-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" data-product-id="${p.id}" onclick="event.preventDefault(); event.stopPropagation(); openQuickView('${p.id}')" aria-label="Quick view">
+            <span class="material-symbols-outlined text-sm">visibility</span>
+        </button>
     </a>`;
 }
 
