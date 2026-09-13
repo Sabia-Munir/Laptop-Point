@@ -19,7 +19,7 @@ function renderProductCard(p, fixedWidth) {
         : `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.price).toLocaleString()}</span>`;
 
     return `
-    <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass}">
+    <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass} hover-lift reveal">
         <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint product-image-zoom">
             <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${img}"/>
         </div>
