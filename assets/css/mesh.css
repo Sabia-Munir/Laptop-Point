@@ -1,0 +1,56 @@
+/* Animated gradient mesh background for hero sections */
+
+.gradient-mesh {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.gradient-mesh .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: orb-float 20s ease-in-out infinite;
+}
+
+.gradient-mesh .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #a855f7, transparent 70%);
+    top: -10%; left: -10%;
+    animation-delay: 0s;
+}
+
+.gradient-mesh .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #3b82f6, transparent 70%);
+    bottom: -15%; right: -5%;
+    animation-delay: -7s;
+}
+
+.gradient-mesh .orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #06b6d4, transparent 70%);
+    top: 40%; left: 50%;
+    animation-delay: -14s;
+}
+
+@keyframes orb-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(-20px, 40px) scale(0.95); }
+    75% { transform: translate(30px, 20px) scale(1.05); }
+}
+
+/* Grid pattern overlay */
+.grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 1;
+}
