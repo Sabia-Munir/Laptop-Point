@@ -1,0 +1,85 @@
+/* Professional form input animations */
+
+.input-animated {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.875rem;
+    color: #dae2fd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    outline: none;
+}
+
+.input-animated:focus {
+    border-color: rgba(168,85,247,0.6);
+    box-shadow: 0 0 0 4px rgba(168,85,247,0.15), 0 0 20px rgba(168,85,247,0.1);
+    background: rgba(0,0,0,0.4);
+}
+
+.input-animated::placeholder {
+    color: rgba(218,226,253,0.25);
+    transition: color 0.3s ease;
+}
+
+.input-animated:focus::placeholder {
+    color: rgba(218,226,253,0.4);
+}
+
+/* Floating label style */
+.input-group {
+    position: relative;
+}
+
+.input-group .input-animated {
+    padding-top: 1.2rem;
+    padding-bottom: 0.4rem;
+}
+
+.input-group label {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: rgba(218,226,253,0.4);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.input-group .input-animated:focus + label,
+.input-group .input-animated:not(:placeholder-shown) + label {
+    top: 0.6rem;
+    transform: translateY(0);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(168,85,247,0.7);
+}
+
+/* Textarea auto-resize visual */
+textarea.input-animated {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Select dropdown arrow */
+select.input-animated {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23988d9f' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+}
+
+/* Success/error states */
+.input-success {
+    border-color: rgba(34,197,94,0.5) !important;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.1) !important;
+}
+
+.input-error {
+    border-color: rgba(239,68,68,0.5) !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
+}
