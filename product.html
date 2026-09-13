@@ -115,6 +115,9 @@
                 <button id="add-to-cart-btn" class="flex-1 bg-gradient-to-r from-primary-container to-secondary-container text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
                     Add to Cart
                 </button>
+                <button id="wishlist-btn" class="wishlist-toggle w-12 h-12 glass-panel rounded-lg flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-product-id="">
+                    <span class="material-symbols-outlined text-xl">favorite_border</span>
+                </button>
             </div>
             <p id="added-msg" class="text-green-400 text-sm mt-3 hidden">Added to cart.</p>
         </div>
@@ -144,6 +147,7 @@
 <script src="assets/js/account.js"></script>
 <script src="assets/js/toast.js"></script>
 <script src="assets/js/recently-viewed.js"></script>
+<script src="assets/js/wishlist.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script src="assets/js/scroll-reveal.js"></script>
@@ -216,6 +220,8 @@
         document.getElementById('p-name').textContent = p.name;
         document.getElementById('p-brand').textContent = p.brand || '';
         document.getElementById('p-description').textContent = p.description || '';
+        document.getElementById('wishlist-btn').dataset.productId = p.id;
+        updateWishlistButtons();
 
         const priceEl = document.getElementById('p-price');
         const originalEl = document.getElementById('p-original-price');
@@ -282,6 +288,10 @@
         if (typeof Toast !== 'undefined') {
             Toast.success(`${currentProduct.name} added to cart`);
         }
+    });
+
+    document.getElementById('wishlist-btn').addEventListener('click', () => {
+        if (currentProduct) toggleWishlist(currentProduct);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
