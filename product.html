@@ -121,6 +121,7 @@
             </div>
             <p id="added-msg" class="text-green-400 text-sm mt-3 hidden">Added to cart.</p>
             <div id="delivery-estimate" class="mt-5 glass-panel rounded-lg p-4"></div>
+            <div id="share-buttons" class="flex items-center gap-4 mt-5 pt-5 border-t border-white/10"></div>
         </div>
     </div>
 </main>
@@ -150,6 +151,7 @@
 <script src="assets/js/recently-viewed.js"></script>
 <script src="assets/js/wishlist.js"></script>
 <script src="assets/js/delivery-estimate.js"></script>
+<script src="assets/js/share.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script src="assets/js/scroll-reveal.js"></script>
@@ -225,6 +227,7 @@
         document.getElementById('wishlist-btn').dataset.productId = p.id;
         updateWishlistButtons();
         renderDeliveryEstimate('delivery-estimate', 'islamabad');
+        renderShareButtons('share-buttons', window.location.href, p.name + ' - Laptop Point');
 
         const priceEl = document.getElementById('p-price');
         const originalEl = document.getElementById('p-original-price');
