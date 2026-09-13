@@ -143,6 +143,7 @@
 <script src="assets/js/cart.js"></script>
 <script src="assets/js/account.js"></script>
 <script src="assets/js/toast.js"></script>
+<script src="assets/js/recently-viewed.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script src="assets/js/scroll-reveal.js"></script>
@@ -186,6 +187,7 @@
 
         currentProduct = product;
         renderProduct(product);
+        trackRecentlyViewed(product);
     }
 
     function showError() {
