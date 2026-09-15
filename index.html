@@ -511,8 +511,10 @@ requestAnimationFrame(animate);
 </div>
 </main>
 <!-- Footer -->
-<footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<footer class="relative border-t border-white/5 shadow-none w-full overflow-hidden">
+<div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: linear-gradient(rgba(168,85,247,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px); background-size: 60px 60px;"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/95 to-surface-container-lowest/80 pointer-events-none"></div>
+<div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
 
     <!-- Brand + about -->
     <div class="flex flex-col gap-stack-sm items-center md:items-start text-center md:text-left">
@@ -522,6 +524,14 @@ requestAnimationFrame(animate);
         <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">
             Premium laptops and accessories, hand-picked and backed by real support — no bait-and-switch, no fine print.
         </p>
+        <div class="flex gap-3 mt-2">
+            <a href="https://wa.me/923115245535" target="_blank" rel="noopener" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-white/40 hover:text-green-400 hover:border-green-400/30 transition-all" aria-label="WhatsApp">
+                <span class="material-symbols-outlined text-lg">chat</span>
+            </a>
+            <a href="tel:03115245535" class="w-9 h-9 rounded-full glass-panel flex items-center justify-center text-white/40 hover:text-primary hover:border-primary/30 transition-all" aria-label="Call">
+                <span class="material-symbols-outlined text-lg">call</span>
+            </a>
+        </div>
     </div>
 
     <!-- Visit us -->
@@ -534,10 +544,6 @@ requestAnimationFrame(animate);
         <a href="tel:03115245535" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-lg">call</span>
             <span>0311-5245535</span>
-        </a>
-        <a href="https://wa.me/923115245535" target="_blank" rel="noopener" class="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-lg">chat</span>
-            <span>WhatsApp us</span>
         </a>
     </div>
 
@@ -560,12 +566,16 @@ requestAnimationFrame(animate);
 
 </div>
 
-<div class="border-t border-white/5">
+<div class="relative z-10 border-t border-white/5">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-md flex flex-col sm:flex-row justify-between items-center gap-3">
         <div class="font-body-md text-body-md text-secondary opacity-70">
             © 2026 Laptop Point. Power that fits your world.
         </div>
-        <a href="admin/login.html" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Admin</a>
+        <div class="flex items-center gap-4">
+            <a href="#" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Privacy</a>
+            <a href="#" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Terms</a>
+            <a href="admin/login.html" class="font-label-sm text-label-sm text-on-surface-variant/40 hover:text-primary transition-colors uppercase tracking-wide">Admin</a>
+        </div>
     </div>
 </div>
 </footer>
