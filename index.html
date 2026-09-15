@@ -498,6 +498,13 @@ requestAnimationFrame(animate);
 </section>
 <!-- Brand Marquee -->
 <div id="brand-marquee" class="mt-stack-lg fade-in-section"></div>
+<!-- Stats Counter -->
+<section class="mt-stack-lg fade-in-section">
+<div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2 reveal">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">By The Numbers</h2>
+</div>
+<div id="stats-grid"></div>
+</section>
 </main>
 <!-- Footer -->
 <footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full">
@@ -635,6 +642,7 @@ requestAnimationFrame(animate);
 <script src="assets/js/progress-bar.js"></script>
 <script src="assets/js/testimonials.js"></script>
 <script src="assets/js/marquee.js"></script>
+<script src="assets/js/stats-counter.js"></script>
     <script>
         // Storefront product loading — reads from the public_products view, which
         // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
@@ -673,6 +681,7 @@ requestAnimationFrame(animate);
             loadStorefrontProducts();
             renderTestimonials('testimonials-grid', DEFAULT_REVIEWS);
             renderMarquee('brand-marquee', BRAND_ITEMS);
+            renderStats('stats-grid', DEFAULT_STATS);
             updateCartCount();
             updateAccountLink();
         });
