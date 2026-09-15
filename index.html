@@ -505,6 +505,10 @@ requestAnimationFrame(animate);
 </div>
 <div id="stats-grid"></div>
 </section>
+<!-- CTA Banner -->
+<div class="mt-stack-lg fade-in-section">
+<div id="cta-banner"></div>
+</div>
 </main>
 <!-- Footer -->
 <footer class="bg-surface-container-lowest border-t border-white/5 shadow-none w-full">
@@ -644,6 +648,7 @@ requestAnimationFrame(animate);
 <script src="assets/js/marquee.js"></script>
 <script src="assets/js/stats-counter.js"></script>
 <script src="assets/js/scroll-spy.js"></script>
+<script src="assets/js/cta-banner.js"></script>
     <script>
         // Storefront product loading — reads from the public_products view, which
         // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
@@ -683,6 +688,7 @@ requestAnimationFrame(animate);
             renderTestimonials('testimonials-grid', DEFAULT_REVIEWS);
             renderMarquee('brand-marquee', BRAND_ITEMS);
             renderStats('stats-grid', DEFAULT_STATS);
+            renderCTABanner('cta-banner');
             updateCartCount();
             updateAccountLink();
         });
