@@ -51,10 +51,23 @@
     <div id="cart-items" class="space-y-4"></div>
 
     <div id="cart-summary" class="hidden glass-panel rounded-xl p-6 mt-6">
+        <!-- Promo code -->
+        <div class="mb-4">
+            <label class="block text-xs text-white/40 mb-1.5">Promo Code</label>
+            <div class="flex gap-2">
+                <input id="promo-input" type="text" placeholder="Enter code" class="flex-1 bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#a855f7]/60 uppercase tracking-wider"/>
+                <button id="promo-btn" class="bg-white/10 hover:bg-white/15 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Apply</button>
+            </div>
+            <p id="promo-msg" class="text-xs mt-1.5 hidden"></p>
+        </div>
         <div class="space-y-3 mb-4">
             <div class="flex justify-between text-sm text-white/60">
                 <span>Subtotal</span>
                 <span id="cart-subtotal">Rs. 0</span>
+            </div>
+            <div class="flex justify-between text-sm text-white/60" id="cart-discount-row" style="display:none">
+                <span>Discount</span>
+                <span id="cart-discount" class="text-green-400">-Rs. 0</span>
             </div>
             <div class="flex justify-between text-sm text-white/60">
                 <span>Delivery</span>
@@ -114,6 +127,13 @@
 <script src="assets/js/page-transition.js"></script>
 <script src="assets/js/mobile-nav.js"></script>
 <script>
+    const PROMO_CODES = {
+        'WELCOME10': { type: 'percent', value: 10, max: 5000 },
+        'FLAT2000': { type: 'flat', value: 2000 },
+        'LP2026': { type: 'percent', value: 5, max: 3000 }
+    };
+    let appliedPromo = null;
+
     function render() {
         const cart = getCart();
         const container = document.getElementById('cart-items');
@@ -150,12 +170,16 @@
             </div>
         `).join('');
 
-        document.getElementById('cart-total').textContent = 'Rs. ' + cartTotal().toLocaleString();
-        document.getElementById('cart-subtotal').textContent = 'Rs. ' + cartTotal().toLocaleString();
-
         // Free shipping threshold (Rs. 50,000)
         const FREE_SHIPPING_THRESHOLD = 50000;
         const total = cartTotal();
+        let discount = 0;
+        if (appliedPromo) {
+            const promo = PROMO_CODES[appliedPromo];
+            if (promo.type === 'percent') discount = Math.min(total * promo.value / 100, promo.max || Infinity);
+            else discount = promo.value;
+        }
+        const finalTotal = Math.max(total - discount, 0);
         const freeShippingBar = document.getElementById('free-shipping-bar');
         if (total < FREE_SHIPPING_THRESHOLD) {
             const remaining = FREE_SHIPPING_THRESHOLD - total;
@@ -170,6 +194,9 @@
             document.getElementById('cart-delivery').className = 'text-green-400';
             freeShippingBar.classList.add('hidden');
         }
+        document.getElementById('cart-discount-row').style.display = discount > 0 ? 'flex' : 'none';
+        document.getElementById('cart-discount').textContent = '-Rs. ' + discount.toLocaleString();
+        document.getElementById('cart-total').textContent = 'Rs. ' + finalTotal.toLocaleString();
 
         container.querySelectorAll('.qty-minus').forEach(btn => btn.addEventListener('click', () => {
             const item = getCart().find(i => i.id === btn.dataset.id);
@@ -194,6 +221,23 @@
     document.addEventListener('DOMContentLoaded', () => {
         render();
         updateAccountLink();
+
+        document.getElementById('promo-btn').addEventListener('click', () => {
+            const code = document.getElementById('promo-input').value.trim().toUpperCase();
+            const msg = document.getElementById('promo-msg');
+            if (!code) return;
+            if (PROMO_CODES[code]) {
+                appliedPromo = code;
+                msg.textContent = `Code "${code}" applied!`;
+                msg.className = 'text-xs mt-1.5 text-green-400';
+                msg.classList.remove('hidden');
+                render();
+            } else {
+                msg.textContent = 'Invalid promo code';
+                msg.className = 'text-xs mt-1.5 text-red-400';
+                msg.classList.remove('hidden');
+            }
+        });
     });
 </script>
 </body>
