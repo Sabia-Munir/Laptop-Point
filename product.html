@@ -116,6 +116,9 @@
                 <button id="add-to-cart-btn" class="flex-1 bg-gradient-to-r from-primary-container to-secondary-container text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
                     Add to Cart
                 </button>
+                <button id="buy-now-btn" class="flex-1 bg-white/10 border border-white/20 text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:bg-white/15 hover:border-primary/50 transition-all">
+                    Buy Now
+                </button>
                 <button id="wishlist-btn" class="wishlist-toggle w-12 h-12 glass-panel rounded-lg flex items-center justify-center text-white/50 hover:text-red-400 transition-colors" data-product-id="">
                     <span class="material-symbols-outlined text-xl">favorite_border</span>
                 </button>
@@ -323,6 +326,13 @@
         if (typeof Toast !== 'undefined') {
             Toast.success(`${currentProduct.name} added to cart`);
         }
+    });
+
+    document.getElementById('buy-now-btn').addEventListener('click', () => {
+        if (!currentProduct || currentProduct.availability === 'out_of_stock') return;
+        addToCart(currentProduct, qty);
+        updateCartCount();
+        window.location.href = 'checkout.html';
     });
 
     document.getElementById('wishlist-btn').addEventListener('click', () => {
