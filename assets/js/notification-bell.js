@@ -10,7 +10,7 @@ function initNotificationBell(triggerId) {
     document.body.appendChild(panel);
     function getNotifications() {
         const items = [];
-        const cart = JSON.parse(localStorage.getItem('lp_cart') || '[]');
+        const cart = JSON.parse(localStorage.getItem('laptop_point_cart') || '[]');
         const wishlist = JSON.parse(localStorage.getItem('lp_wishlist') || '[]');
         if (cart.length) items.push({ icon: 'shopping_cart', text: `${cart.length} item${cart.length > 1 ? 's' : ''} in your cart`, color: 'text-primary' });
         if (wishlist.length) items.push({ icon: 'favorite', text: `${wishlist.length} item${wishlist.length > 1 ? 's' : ''} in wishlist`, color: 'text-red-400' });
