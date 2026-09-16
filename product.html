@@ -299,7 +299,18 @@
     document.getElementById('add-to-cart-btn').addEventListener('click', () => {
         if (!currentProduct || currentProduct.availability === 'out_of_stock') return;
         addToCart(currentProduct, qty);
-        document.getElementById('added-msg').classList.remove('hidden');
+        const msg = document.getElementById('added-msg');
+        msg.classList.remove('hidden');
+        msg.style.opacity = '0';
+        msg.style.transform = 'translateY(-5px)';
+        msg.style.transition = 'opacity 0.3s, transform 0.3s';
+        requestAnimationFrame(() => { msg.style.opacity = '1'; msg.style.transform = 'translateY(0)'; });
+        clearTimeout(msg._hideTimer);
+        msg._hideTimer = setTimeout(() => {
+            msg.style.opacity = '0';
+            msg.style.transform = 'translateY(-5px)';
+            setTimeout(() => msg.classList.add('hidden'), 300);
+        }, 3000);
         updateCartCount();
         if (typeof Toast !== 'undefined') {
             Toast.success(`${currentProduct.name} added to cart`);

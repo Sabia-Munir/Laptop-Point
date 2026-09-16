@@ -51,12 +51,36 @@
     <div id="cart-items" class="space-y-4"></div>
 
     <div id="cart-summary" class="hidden glass-panel rounded-xl p-6 mt-6">
-        <div class="flex justify-between text-lg font-semibold mb-4">
-            <span>Total</span>
-            <span id="cart-total">Rs. 0</span>
+        <div class="space-y-3 mb-4">
+            <div class="flex justify-between text-sm text-white/60">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">Rs. 0</span>
+            </div>
+            <div class="flex justify-between text-sm text-white/60">
+                <span>Delivery</span>
+                <span id="cart-delivery" class="text-green-400">Free</span>
+            </div>
+            <div class="flex justify-between text-sm text-green-400" id="cart-savings-row" style="display:none">
+                <span>You Save</span>
+                <span id="cart-savings">Rs. 0</span>
+            </div>
+            <div class="border-t border-white/10 pt-3 flex justify-between text-lg font-semibold">
+                <span>Total</span>
+                <span id="cart-total">Rs. 0</span>
+            </div>
+        </div>
+        <!-- Free shipping progress -->
+        <div id="free-shipping-bar" class="mb-4 hidden">
+            <div class="text-xs text-white/50 mb-1.5" id="free-shipping-text">Add Rs. 0 more for free delivery</div>
+            <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="free-shipping-progress" class="h-full bg-gradient-to-r from-[#a855f7] to-[#3b82f6] rounded-full transition-all duration-500" style="width:0%"></div>
+            </div>
         </div>
         <a href="checkout.html" class="block text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-3 rounded-lg font-medium uppercase tracking-wider text-sm hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
             Proceed to Checkout
+        </a>
+        <a href="shop.html?type=laptops" class="block text-center text-sm text-white/40 hover:text-white/70 transition-colors mt-3">
+            ← Continue Shopping
         </a>
     </div>
 </main>
@@ -106,24 +130,46 @@
 
         container.innerHTML = cart.map(item => `
             <div class="glass-panel rounded-xl p-4 flex items-center gap-4">
-                <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover"/>
-                <div class="flex-1">
-                    <div class="font-medium">${item.name}</div>
-                    <div class="text-sm text-white/40">Rs. ${item.price.toLocaleString()}</div>
+                <a href="product.html?id=${item.id}"><img src="${item.image}" class="w-16 h-16 rounded-lg object-cover hover:opacity-80 transition-opacity"/></a>
+                <div class="flex-1 min-w-0">
+                    <a href="product.html?id=${item.id}" class="font-medium hover:text-primary transition-colors truncate block">${item.name}</a>
+                    <div class="text-sm text-white/40">Rs. ${item.price.toLocaleString()} each</div>
                 </div>
                 <div class="flex items-center glass-panel rounded-lg">
                     <button class="qty-minus px-3 py-1.5 text-white/70 hover:text-white" data-id="${item.id}">−</button>
                     <span class="px-3 text-sm">${item.quantity}</span>
                     <button class="qty-plus px-3 py-1.5 text-white/70 hover:text-white" data-id="${item.id}">+</button>
                 </div>
-                <div class="w-24 text-right font-medium">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
-                <button class="remove-btn text-white/30 hover:text-red-400" data-id="${item.id}">
+                <div class="w-28 text-right">
+                    <div class="font-medium">Rs. ${(item.price * item.quantity).toLocaleString()}</div>
+                    <div class="text-xs text-white/30">${item.quantity > 1 ? item.quantity + ' × Rs. ' + item.price.toLocaleString() : ''}</div>
+                </div>
+                <button class="remove-btn text-white/30 hover:text-red-400" data-id="${item.id}" aria-label="Remove ${item.name}">
                     <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
         `).join('');
 
         document.getElementById('cart-total').textContent = 'Rs. ' + cartTotal().toLocaleString();
+        document.getElementById('cart-subtotal').textContent = 'Rs. ' + cartTotal().toLocaleString();
+
+        // Free shipping threshold (Rs. 50,000)
+        const FREE_SHIPPING_THRESHOLD = 50000;
+        const total = cartTotal();
+        const freeShippingBar = document.getElementById('free-shipping-bar');
+        if (total < FREE_SHIPPING_THRESHOLD) {
+            const remaining = FREE_SHIPPING_THRESHOLD - total;
+            const pct = Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100);
+            document.getElementById('free-shipping-text').textContent = `Add Rs. ${remaining.toLocaleString()} more for free delivery`;
+            document.getElementById('free-shipping-progress').style.width = pct + '%';
+            document.getElementById('cart-delivery').textContent = 'Free over Rs. 50,000';
+            document.getElementById('cart-delivery').className = 'text-white/40';
+            freeShippingBar.classList.remove('hidden');
+        } else {
+            document.getElementById('cart-delivery').textContent = 'Free';
+            document.getElementById('cart-delivery').className = 'text-green-400';
+            freeShippingBar.classList.add('hidden');
+        }
 
         container.querySelectorAll('.qty-minus').forEach(btn => btn.addEventListener('click', () => {
             const item = getCart().find(i => i.id === btn.dataset.id);
