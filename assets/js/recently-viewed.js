@@ -28,7 +28,11 @@ function renderRecentlyViewed(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     const items = getRecentlyViewed();
-    if (items.length === 0) { container.parentElement?.classList.add('hidden'); return; }
+    if (items.length === 0) {
+        const section = container.closest('.recently-viewed-section') || container.parentElement;
+        if (section) section.style.display = 'none';
+        return;
+    }
     container.innerHTML = items.map(p => `
         <a href="product.html?id=${p.id}" class="flex-none w-48 snap-start glass-panel rounded-xl overflow-hidden hover-lift transition-all">
             <div class="h-28 w-full bg-surface-container overflow-hidden">
