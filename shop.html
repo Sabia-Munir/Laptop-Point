@@ -111,13 +111,24 @@
 
         <!-- Results -->
         <div class="flex-1">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div id="results-count" class="text-xs text-white/40 hidden"></div>
+                <div class="flex items-center gap-3">
+                    <select id="sort-select" class="bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-xs text-white/70 focus:outline-none focus:border-[#a855f7]/60">
+                        <option value="">Sort by</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-az">Name: A-Z</option>
+                        <option value="name-za">Name: Z-A</option>
+                    </select>
+                </div>
+            </div>
             <div id="loading-msg" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="glass-panel rounded-xl overflow-hidden"><div class="skeleton skeleton-image"></div><div class="p-6 space-y-3"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn mt-4"></div></div></div>
                 <div class="glass-panel rounded-xl overflow-hidden"><div class="skeleton skeleton-image"></div><div class="p-6 space-y-3"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn mt-4"></div></div></div>
                 <div class="glass-panel rounded-xl overflow-hidden"><div class="skeleton skeleton-image"></div><div class="p-6 space-y-3"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-sm"></div><div class="skeleton skeleton-btn mt-4"></div></div></div>
             </div>
             <div id="empty-msg" class="hidden text-white/40 text-sm">No products match this price range.</div>
-            <div id="results-count" class="text-xs text-white/40 mb-4 hidden"></div>
             <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </div>
@@ -159,8 +170,9 @@
         const min = parseFloat(document.getElementById('price-min').value) || 0;
         const maxInput = document.getElementById('price-max').value;
         const max = maxInput ? parseFloat(maxInput) : Infinity;
+        const sort = document.getElementById('sort-select').value;
 
-        const filtered = allProducts.filter(p => {
+        let filtered = allProducts.filter(p => {
             if (!matchesType(p, type)) return false;
             if (query) {
                 const searchable = (p.name + ' ' + (p.brand || '') + ' ' + (p.description || '') + ' ' + p.category).toLowerCase();
@@ -169,6 +181,12 @@
             const effectivePrice = p.discount_price || p.price;
             return effectivePrice >= min && effectivePrice <= max;
         });
+
+        // Sort
+        if (sort === 'price-low') filtered.sort((a, b) => (a.discount_price || a.price) - (b.discount_price || b.price));
+        else if (sort === 'price-high') filtered.sort((a, b) => (b.discount_price || b.price) - (a.discount_price || a.price));
+        else if (sort === 'name-az') filtered.sort((a, b) => a.name.localeCompare(b.name));
+        else if (sort === 'name-za') filtered.sort((a, b) => b.name.localeCompare(a.name));
 
         const grid = document.getElementById('products-grid');
         const countEl = document.getElementById('results-count');
@@ -211,9 +229,11 @@
         document.getElementById('search-input').value = '';
         document.getElementById('price-min').value = '';
         document.getElementById('price-max').value = '';
+        document.getElementById('sort-select').value = '';
         applyFilters();
     });
     document.getElementById('search-input').addEventListener('input', applyFilters);
+    document.getElementById('sort-select').addEventListener('change', applyFilters);
 
     document.addEventListener('DOMContentLoaded', () => {
         loadProducts();
