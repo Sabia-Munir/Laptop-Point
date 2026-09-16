@@ -127,6 +127,11 @@
             <div id="trust-badges" class="mt-6"></div>
         </div>
     </div>
+    <!-- Product Reviews -->
+    <div class="mt-12" id="product-reviews-section">
+        <h2 class="text-xl font-bold mb-6 border-b border-white/10 pb-3">Customer Reviews</h2>
+        <div id="product-reviews"></div>
+    </div>
 </main>
 <footer class="border-t border-white/10 mt-16">
     <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
@@ -157,6 +162,7 @@
 <script src="assets/js/share.js"></script>
 <script src="assets/js/stock-alert.js"></script>
 <script src="assets/js/trust-badges.js"></script>
+<script src="assets/js/product-reviews.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script src="assets/js/scroll-reveal.js"></script>
@@ -239,6 +245,7 @@
         renderShareButtons('share-buttons', window.location.href, p.name + ' - Laptop Point');
         renderStockNotification('stock-notification', p.id, p.name, p.availability);
         renderTrustBadges('trust-badges');
+        renderProductReviews('product-reviews', p.id, PRODUCT_REVIEWS);
 
         const priceEl = document.getElementById('p-price');
         const originalEl = document.getElementById('p-original-price');
