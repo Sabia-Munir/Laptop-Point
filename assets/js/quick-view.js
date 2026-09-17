@@ -1,29 +1,44 @@
-// Quick View modal — shows product details in a popup without leaving the page.
-// Call openQuickView(productId) to open. Fetches product from Supabase.
+// Premium Quick View modal — shows product details in a popup with Add to Cart.
 
 function openQuickView(productId) {
     let modal = document.getElementById('quick-view-modal');
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'quick-view-modal';
-        modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4';
+        modal.className = 'fixed inset-0 z-[100] hidden';
         modal.innerHTML = `
-            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="qv-overlay"></div>
-            <div class="glass-panel rounded-2xl w-full max-w-lg relative z-10 max-h-[90vh] overflow-y-auto" id="qv-content">
-                <div class="p-6 text-center text-white/40">Loading...</div>
+            <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" id="qv-overlay"></div>
+            <div class="absolute inset-4 sm:inset-10 md:inset-16 flex items-center justify-center">
+                <div class="glass-panel rounded-2xl w-full max-w-lg relative z-10 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" id="qv-content">
+                    <div class="p-6 text-center text-white/40 flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined animate-spin">progress_activity</span> Loading...
+                    </div>
+                </div>
             </div>`;
         document.body.appendChild(modal);
         document.getElementById('qv-overlay').addEventListener('click', closeQuickView);
     }
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    // Animate in
+    requestAnimationFrame(() => {
+        const content = document.getElementById('qv-content');
+        content.style.transform = 'scale(1)';
+        content.style.opacity = '1';
+    });
     loadQuickView(productId);
 }
 
 function closeQuickView() {
     const modal = document.getElementById('quick-view-modal');
-    if (modal) modal.classList.add('hidden');
-    document.body.style.overflow = '';
+    if (!modal) return;
+    const content = document.getElementById('qv-content');
+    content.style.transform = 'scale(0.95)';
+    content.style.opacity = '0';
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 200);
 }
 
 async function loadQuickView(id) {
@@ -35,20 +50,42 @@ async function loadQuickView(id) {
         const price = p.discount_price
             ? `<span class="text-xl font-bold text-tertiary">Rs. ${Number(p.discount_price).toLocaleString()}</span><span class="text-sm text-white/40 line-through ml-2">Rs. ${Number(p.price).toLocaleString()}</span>`
             : `<span class="text-xl font-bold text-tertiary">Rs. ${Number(p.price).toLocaleString()}</span>`;
-        const avail = { in_stock: '<span class="text-green-400 text-xs">In Stock</span>', low_stock: '<span class="text-yellow-400 text-xs">Low Stock</span>', out_of_stock: '<span class="text-red-400 text-xs">Out of Stock</span>' };
+        const avail = { in_stock: '<span class="text-green-400 text-xs font-medium">In Stock</span>', low_stock: '<span class="text-yellow-400 text-xs font-medium">Low Stock</span>', out_of_stock: '<span class="text-red-400 text-xs font-medium">Out of Stock</span>' };
+
         content.innerHTML = `
-            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-white/50 hover:text-white z-10"><span class="material-symbols-outlined">close</span></button>
-            <div class="h-56 w-full overflow-hidden rounded-t-2xl"><img src="${img}" alt="${p.name}" class="w-full h-full object-cover"/></div>
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-white/50 hover:text-white z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-lg">close</span></button>
+            <div class="h-56 w-full overflow-hidden rounded-t-2xl relative">
+                <img src="${img}" alt="${p.name}" class="w-full h-full object-cover"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            </div>
             <div class="p-6">
-                <span class="text-xs uppercase tracking-wider text-primary">${p.category}</span>
-                <h3 class="text-lg font-bold mt-1 mb-2">${p.name}</h3>
-                <div class="flex items-center gap-3 mb-3">${price}${avail[p.availability] || ''}</div>
-                <p class="text-sm text-white/50 mb-4">${p.description || ''}</p>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs uppercase tracking-wider text-primary font-medium">${p.category}</span>
+                    <span class="text-white/20">·</span>
+                    ${avail[p.availability] || ''}
+                </div>
+                <h3 class="text-lg font-bold mb-2">${p.name}</h3>
+                <p class="text-sm text-white/50 mb-4 line-clamp-2">${p.description || ''}</p>
+                <div class="flex items-center gap-3 mb-5">${price}</div>
                 <div class="flex gap-3">
-                    <a href="product.html?id=${p.id}" class="flex-1 text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider">View Full Details</a>
+                    <a href="product.html?id=${p.id}" class="flex-1 text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all">View Details</a>
+                    <button onclick="quickViewAddToCart('${p.id}')" class="quickview-cart-btn flex items-center gap-2 bg-white/10 border border-white/20 text-white py-2.5 px-5 rounded-lg text-sm font-medium hover:bg-white/15 transition-all">
+                        <span class="material-symbols-outlined text-lg">shopping_cart</span>Add
+                    </button>
                 </div>
             </div>`;
     } catch(e) { content.innerHTML = '<div class="p-6 text-center text-red-400">Error loading product.</div>'; }
+}
+
+async function quickViewAddToCart(productId) {
+    if (typeof addToCart !== 'function' || typeof supabaseClient === 'undefined') return;
+    const { data } = await supabaseClient.from('public_products').select('*').eq('id', productId).single();
+    if (data) {
+        addToCart(data, 1);
+        updateCartCount();
+        if (typeof Toast !== 'undefined') Toast.success(`${data.name} added to cart`);
+        closeQuickView();
+    }
 }
 
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuickView(); });
