@@ -211,10 +211,21 @@
         }));
         container.querySelectorAll('.remove-btn').forEach(btn => btn.addEventListener('click', () => {
             const item = getCart().find(i => i.id === btn.dataset.id);
+            if (!item) return;
+            const removed = { ...item };
             removeFromCart(btn.dataset.id);
             render();
-            if (typeof Toast !== 'undefined' && item) {
-                Toast.info(`${item.name} removed from cart`);
+            updateCartCount();
+            if (typeof Toast !== 'undefined') {
+                Toast.show(`${removed.name} removed. <button onclick="window._undoRemove && window._undoRemove()" class="underline font-medium ml-2 hover:text-white">Undo</button>`, 'info', 5000);
+                window._undoRemove = () => {
+                    const cart = getCart();
+                    cart.push(removed);
+                    saveCart(cart);
+                    render();
+                    updateCartCount();
+                    Toast.success('Item restored');
+                };
             }
         }));
     }
