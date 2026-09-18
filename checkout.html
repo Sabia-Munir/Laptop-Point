@@ -57,26 +57,27 @@
         </div>
 
         <div class="glass-panel rounded-xl p-5 space-y-4">
-            <h2 class="text-sm uppercase tracking-wide text-white/50">Shipping Details</h2>
+            <h2 class="text-sm uppercase tracking-wide text-white/50 flex items-center gap-2"><span class="material-symbols-outlined text-lg">local_shipping</span> Shipping Details</h2>
             <div>
                 <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Full Name</label>
-                <input id="c-name" type="text" required class="input-field"/>
+                <input id="c-name" type="text" required class="input-field" autocomplete="name" placeholder="Your full name"/>
             </div>
             <div>
                 <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Phone Number</label>
-                <input id="c-phone" type="tel" required class="input-field" placeholder="03XX-XXXXXXX"/>
+                <input id="c-phone" type="tel" required class="input-field" autocomplete="tel" placeholder="03XX-XXXXXXX" pattern="03[0-9]{2}-?[0-9]{7}"/>
+                <p class="text-xs text-white/30 mt-1">Format: 03XXXXXXXXX</p>
             </div>
             <div>
                 <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Email (optional)</label>
-                <input id="c-email" type="email" class="input-field"/>
+                <input id="c-email" type="email" class="input-field" autocomplete="email" placeholder="you@example.com"/>
             </div>
             <div>
                 <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">Delivery Address</label>
-                <textarea id="c-address" required rows="3" class="input-field"></textarea>
+                <textarea id="c-address" required rows="3" class="input-field" autocomplete="street-address" placeholder="House #, Street, Area"></textarea>
             </div>
             <div>
                 <label class="block text-xs uppercase tracking-wide text-white/50 mb-1.5">City</label>
-                <input id="c-city" type="text" required class="input-field"/>
+                <input id="c-city" type="text" required class="input-field" autocomplete="address-level2" placeholder="e.g. Islamabad"/>
             </div>
         </div>
 
