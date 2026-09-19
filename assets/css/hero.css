@@ -63,3 +63,111 @@
     95% { transform: translate(1px, -2px); }
     97% { transform: translate(-2px, 1px); }
 }
+
+/* ── FLOATING GLASSMORPHIC CARD ──────────────────────────── */
+.hero-feature-card {
+    background: linear-gradient(135deg, rgba(45, 52, 73, 0.5) 0%, rgba(23, 31, 51, 0.6) 100%);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(168, 85, 247, 0.15),
+        0 0 0 1px rgba(168, 85, 247, 0.2) inset;
+}
+.hero-feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.03) 42%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(255, 255, 255, 0.03) 58%,
+        transparent 65%
+    );
+    background-size: 250% 100%;
+    animation: card-shimmer 5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+@keyframes card-shimmer {
+    0% { background-position: 250% 0; }
+    100% { background-position: -250% 0; }
+}
+
+/* ── PREMIUM CTA BUTTONS ─────────────────────────────────── */
+.hero-cta-primary {
+    position: relative;
+    background: linear-gradient(135deg, #a855f7, #7c3aed, #3b82f6);
+    background-size: 200% 200%;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+        0 4px 20px rgba(168, 85, 247, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+.hero-cta-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    background-size: 200% 200%;
+    animation: cta-shine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+.hero-cta-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+        0 8px 40px rgba(168, 85, 247, 0.5),
+        0 0 80px rgba(168, 85, 247, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+@keyframes cta-shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.hero-cta-secondary {
+    position: relative;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+.hero-cta-secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(59,130,246,0.1));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.hero-cta-secondary:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+}
+.hero-cta-secondary:hover::before {
+    opacity: 1;
+}
