@@ -141,28 +141,6 @@
             transform: translateY(-2px);
         }
         
-        .hero-text-container {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-        
-        .scroll-text {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            transform: translateY(20px);
-            text-shadow: 0 0 20px rgba(221, 183, 255, 0.5); /* primary shadow */
-        }
-        
-        .scroll-text.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         .fade-in-section {
             opacity: 0;
             transform: translateY(30px);
@@ -190,31 +168,6 @@
             background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
             mix-blend-mode: color;
             pointer-events: none;
-        }
-
-        /* HERO ENTRANCE: elements start invisible/offset, then get .is-visible added
-           once on page load. Each one has its own transition-delay set inline, so
-           they arrive in a deliberate sequence instead of all popping in at once. */
-        .hero-enter {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        .hero-enter.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Floating spec callouts around the laptop — gentle drift, not a spin */
-        .spec-badge {
-            animation: spec-float 4s ease-in-out infinite;
-        }
-        .spec-badge.delay-1 { animation-delay: 0.3s; }
-        .spec-badge.delay-2 { animation-delay: 0.9s; }
-        .spec-badge.delay-3 { animation-delay: 1.5s; }
-        @keyframes spec-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .scroll-line {
@@ -684,60 +637,88 @@
 </footer>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Trigger the hero entrance sequence — each .hero-enter element has its
-            // own transition-delay set inline, so adding .is-visible to all of them
-            // at once still produces a staggered arrival, not a simultaneous pop-in.
+            // ── Hero entrance stagger ──
             requestAnimationFrame(() => {
-                document.querySelectorAll('.hero-enter').forEach(el => el.classList.add('is-visible'));
+                document.querySelectorAll('.hero-stagger').forEach(el => el.classList.add('visible'));
             });
 
-            // Scroll-triggered text change logic
-            const stages = [
-                document.getElementById('text-stage-1'),
-                document.getElementById('text-stage-2'),
-                document.getElementById('text-stage-3')
-            ];
-            
-            const handleScroll = () => {
-                const scrollY = window.scrollY;
-                const windowHeight = window.innerHeight;
-                
-                // Define thresholds for changes
-                const stage2Threshold = windowHeight * 0.3;
-                const stage3Threshold = windowHeight * 0.6;
-                
-                stages.forEach(stage => stage.classList.remove('active'));
-                
-                if (scrollY < stage2Threshold) {
-                    stages[0].classList.add('active');
-                } else if (scrollY < stage3Threshold) {
-                    stages[1].classList.add('active');
-                } else {
-                    stages[2].classList.add('active');
+            // ── Hero typewriter ──
+            const typeEl = document.getElementById('hero-typewriter');
+            const cursorEl = document.getElementById('hero-cursor');
+            if (typeEl) {
+                const phrases = [
+                    'Genuine Products, Real Support',
+                    'Cash on Delivery, Nationwide',
+                    'Premium Hardware, Fair Prices',
+                    'Built for Gamers & Creators'
+                ];
+                let phraseIdx = 0, charIdx = 0, isDeleting = false;
+                function typeTick() {
+                    const current = phrases[phraseIdx];
+                    if (!isDeleting) {
+                        typeEl.textContent = current.substring(0, charIdx + 1);
+                        charIdx++;
+                        if (charIdx === current.length) {
+                            isDeleting = true;
+                            setTimeout(typeTick, 2200);
+                            return;
+                        }
+                        setTimeout(typeTick, 65);
+                    } else {
+                        typeEl.textContent = current.substring(0, charIdx - 1);
+                        charIdx--;
+                        if (charIdx === 0) {
+                            isDeleting = false;
+                            phraseIdx = (phraseIdx + 1) % phrases.length;
+                            setTimeout(typeTick, 400);
+                            return;
+                        }
+                        setTimeout(typeTick, 35);
+                    }
                 }
-            };
+                setTimeout(typeTick, 1200);
+            }
 
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            
-            // Intersection Observer for fade-in elements
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+            // ── Hero stat counter animation ──
+            const statEls = document.querySelectorAll('.hero-stat-count');
+            if (statEls.length) {
+                const animateCount = (el) => {
+                    const target = parseFloat(el.dataset.target);
+                    const isDecimal = target % 1 !== 0;
+                    const duration = 2000;
+                    const start = performance.now();
+                    function tick(now) {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const val = eased * target;
+                        el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val).toLocaleString();
+                        if (progress < 1) requestAnimationFrame(tick);
+                        else el.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString();
+                    }
+                    requestAnimationFrame(tick);
+                };
+                const statsObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCount(entry.target);
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                statEls.forEach(el => statsObserver.observe(el));
+            }
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            // ── Intersection Observer for fade-in elements ──
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                        obs.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
-
-            document.querySelectorAll('.fade-in-section').forEach(section => {
-                observer.observe(section);
-            });
+            document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
