@@ -304,3 +304,31 @@
         border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 }
+
+/* ── REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .hero-gradient-text,
+    .hero-glitch::before,
+    .hero-glitch::after,
+    .hero-feature-card::after,
+    .hero-cta-primary::before,
+    .spec-pill,
+    .spec-pill-dot,
+    .hero-trust-dot,
+    .hero-ring-pulse,
+    .hero-stagger {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+    .hero-stagger { filter: none; opacity: 1; transform: none; }
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+    #hero-particles,
+    .gradient-mesh,
+    .grid-pattern,
+    .hero-ring-pulse,
+    .hero-glow { display: none; }
+    .hero-stagger { opacity: 1; transform: none; filter: none; }
+}

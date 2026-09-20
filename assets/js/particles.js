@@ -177,5 +177,10 @@
         observer.observe(document.getElementById('top'));
     }
 
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
     init();
 })();
