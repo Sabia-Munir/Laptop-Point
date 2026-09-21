@@ -17,6 +17,9 @@ function openQuickView(productId) {
         modal = document.createElement('div');
         modal.id = 'quick-view-modal';
         modal.className = 'fixed inset-0 z-[100] hidden';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'qv-title');
         modal.innerHTML = `
             <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" id="qv-overlay"></div>
             <div class="absolute inset-4 sm:inset-10 md:inset-16 flex items-center justify-center">
@@ -31,11 +34,18 @@ function openQuickView(productId) {
     }
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+
+    // Store the element that triggered the modal for focus restoration
+    modal._triggerEl = document.activeElement;
+
     // Animate in
     requestAnimationFrame(() => {
         const content = document.getElementById('qv-content');
         content.style.transform = 'scale(1)';
         content.style.opacity = '1';
+        // Focus the close button once content loads
+        const closeBtn = content.querySelector('[aria-label="Close quick view"]');
+        if (closeBtn) closeBtn.focus();
     });
     loadQuickView(productId);
 }
@@ -49,7 +59,32 @@ function closeQuickView() {
     setTimeout(() => {
         modal.classList.add('hidden');
         document.body.style.overflow = '';
+        // Restore focus to the trigger element
+        if (modal._triggerEl) modal._triggerEl.focus();
     }, 200);
+}
+
+// Focus trap — keeps Tab cycling inside the modal
+function _trapFocus(e) {
+    const modal = document.getElementById('quick-view-modal');
+    if (!modal || modal.classList.contains('hidden')) return;
+    if (e.key !== 'Tab') return;
+
+    const focusable = modal.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
 }
 
 async function loadQuickView(id) {
@@ -99,4 +134,7 @@ async function quickViewAddToCart(productId) {
     }
 }
 
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuickView(); });
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeQuickView();
+    _trapFocus(e);
+});
