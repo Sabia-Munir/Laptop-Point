@@ -2,6 +2,17 @@
 // shop.html (full filterable listing). Keeping this in one place means both
 // pages always look identical instead of drifting apart over edits.
 
+// HTML entity escaping to prevent XSS from user-supplied product data
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 const availabilityLabel = {
     in_stock: '<span class="text-green-400">In Stock</span>',
     low_stock: '<span class="text-yellow-400">Low Stock</span>',
@@ -19,25 +30,25 @@ function renderProductCard(p, fixedWidth) {
         : `<span class="font-body-lg text-body-lg font-bold text-tertiary">Rs. ${Number(p.price).toLocaleString()}</span>`;
 
     return `
-    <a href="product.html?id=${p.id}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass} hover-lift reveal tilt-card premium-overlay">
+    <a href="product.html?id=${escapeHtml(p.id)}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass} hover-lift reveal tilt-card premium-overlay">
         <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint product-image-zoom">
-            <img alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${img}"/>
+            <img alt="${escapeHtml(p.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${escapeHtml(img)}"/>
         </div>
         <div class="p-6 flex-grow flex flex-col justify-between">
             <div>
                 <div class="flex justify-between items-center mb-3 pb-3 border-b border-white/10">
-                    <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase">${p.category}</span>
+                    <span class="font-label-sm text-label-sm text-primary tracking-[0.2em] uppercase">${escapeHtml(p.category)}</span>
                     <span class="text-xs uppercase tracking-wide">${availabilityLabel[p.availability] || ''}</span>
                 </div>
-                <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${p.name}</h3>
-                <p class="font-body-md text-body-md text-on-surface-variant mb-6">${p.description || ''}</p>
+                <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${escapeHtml(p.name)}</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6">${escapeHtml(p.description || '')}</p>
             </div>
             <div class="flex justify-between items-center mt-auto">
                 ${priceHTML}
                 <span class="flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">View <span class="material-symbols-outlined text-base">arrow_forward</span></span>
             </div>
         </div>
-        <button class="quick-view-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" data-product-id="${p.id}" onclick="event.preventDefault(); event.stopPropagation(); openQuickView('${p.id}')" aria-label="Quick view">
+        <button class="quick-view-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" data-product-id="${escapeHtml(p.id)}" onclick="event.preventDefault(); event.stopPropagation(); openQuickView('${escapeHtml(p.id)}')" aria-label="Quick view ${escapeHtml(p.name)}">
             <span class="material-symbols-outlined text-sm">visibility</span>
         </button>
     </a>`;

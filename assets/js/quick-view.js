@@ -1,5 +1,16 @@
 // Premium Quick View modal — shows product details in a popup with Add to Cart.
 
+// HTML entity escaping to prevent XSS from user-supplied product data
+function _qvEscapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function openQuickView(productId) {
     let modal = document.getElementById('quick-view-modal');
     if (!modal) {
@@ -53,23 +64,23 @@ async function loadQuickView(id) {
         const avail = { in_stock: '<span class="text-green-400 text-xs font-medium">In Stock</span>', low_stock: '<span class="text-yellow-400 text-xs font-medium">Low Stock</span>', out_of_stock: '<span class="text-red-400 text-xs font-medium">Out of Stock</span>' };
 
         content.innerHTML = `
-            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-white/50 hover:text-white z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-lg">close</span></button>
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-white/50 hover:text-white z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center transition-colors" aria-label="Close quick view"><span class="material-symbols-outlined text-lg">close</span></button>
             <div class="h-56 w-full overflow-hidden rounded-t-2xl relative">
-                <img src="${img}" alt="${p.name}" class="w-full h-full object-cover"/>
+                <img src="${_qvEscapeHtml(img)}" alt="${_qvEscapeHtml(p.name)}" class="w-full h-full object-cover"/>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
             <div class="p-6">
                 <div class="flex items-center gap-2 mb-2">
-                    <span class="text-xs uppercase tracking-wider text-primary font-medium">${p.category}</span>
+                    <span class="text-xs uppercase tracking-wider text-primary font-medium">${_qvEscapeHtml(p.category)}</span>
                     <span class="text-white/20">·</span>
                     ${avail[p.availability] || ''}
                 </div>
-                <h3 class="text-lg font-bold mb-2">${p.name}</h3>
-                <p class="text-sm text-white/50 mb-4 line-clamp-2">${p.description || ''}</p>
+                <h3 class="text-lg font-bold mb-2">${_qvEscapeHtml(p.name)}</h3>
+                <p class="text-sm text-white/50 mb-4 line-clamp-2">${_qvEscapeHtml(p.description || '')}</p>
                 <div class="flex items-center gap-3 mb-5">${price}</div>
                 <div class="flex gap-3">
-                    <a href="product.html?id=${p.id}" class="flex-1 text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all">View Details</a>
-                    <button onclick="quickViewAddToCart('${p.id}')" class="quickview-cart-btn flex items-center gap-2 bg-white/10 border border-white/20 text-white py-2.5 px-5 rounded-lg text-sm font-medium hover:bg-white/15 transition-all">
+                    <a href="product.html?id=${_qvEscapeHtml(p.id)}" class="flex-1 text-center bg-gradient-to-r from-[#a855f7] to-[#3b82f6] text-white py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all">View Details</a>
+                    <button onclick="quickViewAddToCart('${_qvEscapeHtml(p.id)}')" class="quickview-cart-btn flex items-center gap-2 bg-white/10 border border-white/20 text-white py-2.5 px-5 rounded-lg text-sm font-medium hover:bg-white/15 transition-all" aria-label="Add ${_qvEscapeHtml(p.name)} to cart">
                         <span class="material-symbols-outlined text-lg">shopping_cart</span>Add
                     </button>
                 </div>
