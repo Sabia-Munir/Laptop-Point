@@ -1,0 +1,58 @@
+/* ═══════════════════════════════════════════════════════════
+   SHARED-STYLES.CSS — Common styles used across all pages
+   Consolidates duplicated inline <style> blocks.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── BASE ────────────────────────────────────────────────── */
+body {
+    background-color: #0b1326;
+    color: #dae2fd;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── GLASS PANEL ─────────────────────────────────────────── */
+.glass-panel {
+    background: rgba(45, 52, 73, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── NEON BORDER ─────────────────────────────────────────── */
+.neon-border {
+    border: 1px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+    transition: all 0.3s ease;
+}
+.neon-border:hover {
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+    transform: translateY(-2px);
+}
+
+/* ── BRAND LOGO ──────────────────────────────────────────── */
+.brand {
+    font-family: 'Geist', sans-serif;
+}
+
+/* ── INPUT FIELDS ────────────────────────────────────────── */
+.input-field {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+.input-field:focus {
+    outline: none;
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+}
