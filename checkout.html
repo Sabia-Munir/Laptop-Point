@@ -34,8 +34,23 @@
 <body class="min-h-screen">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="border-b border-white/10 px-6 py-4" role="banner">
+<header class="bg-[#0b1326]/90 backdrop-blur-xl border-b border-white/10 sticky top-0 z-30 px-6 py-4 flex justify-between items-center gap-4" role="banner">
     <a href="index.html" class="brand text-lg font-extrabold text-[#ddb7ff] tracking-tighter">LAPTOP POINT</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Main navigation">
+        <a href="index.html" class="text-white/60 hover:text-white transition-colors">Home</a>
+        <a href="shop.html?type=laptops" class="text-white/60 hover:text-white transition-colors">Laptops</a>
+        <a href="shop.html?type=accessories" class="text-white/60 hover:text-white transition-colors">Accessories</a>
+    </nav>
+    <div class="flex items-center gap-5">
+        <a id="account-link" href="account.html" class="hidden md:flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">person</span>
+            <span id="account-label">Login</span>
+        </a>
+        <a href="cart.html" class="flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-xl">shopping_cart</span>
+            <span id="cart-count" class="text-xs bg-primary/30 text-primary-fixed rounded-full px-1.5 py-0.5 hidden">0</span>
+        </a>
+    </div>
 </header>
 
 <main id="main-content" class="max-w-2xl mx-auto px-6 py-10" role="main">
@@ -119,6 +134,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/cart.js"></script>
+<script src="assets/js/account.js"></script>
 <script src="assets/js/footer.js"></script>
 <script src="assets/js/scroll-to-top.js"></script>
 <script src="assets/js/scroll-reveal.js"></script>
@@ -189,7 +205,11 @@
         document.getElementById('success-view').classList.remove('hidden');
     });
 
-    document.addEventListener('DOMContentLoaded', renderSummary);
+    document.addEventListener('DOMContentLoaded', () => {
+        renderSummary();
+        if (typeof updateCartCount === 'function') updateCartCount();
+        if (typeof updateAccountLink === 'function') updateAccountLink();
+    });
 </script>
 </body>
 </html>
