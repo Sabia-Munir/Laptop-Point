@@ -101,7 +101,7 @@ async function loadQuickView(id) {
         content.innerHTML = `
             <button onclick="closeQuickView()" class="absolute top-4 right-4 text-white/50 hover:text-white z-10 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center transition-colors" aria-label="Close quick view"><span class="material-symbols-outlined text-lg">close</span></button>
             <div class="h-56 w-full overflow-hidden rounded-t-2xl relative">
-                <img src="${_qvEscapeHtml(img)}" alt="${_qvEscapeHtml(p.name)}" class="w-full h-full object-cover"/>
+                <img src="${_qvEscapeHtml(img)}" alt="${_qvEscapeHtml(p.name)}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/171f33/dae2fd?text=Laptop+Point'"/>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             </div>
             <div class="p-6">

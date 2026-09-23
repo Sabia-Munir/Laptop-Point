@@ -32,7 +32,7 @@ function renderProductCard(p, fixedWidth) {
     return `
     <a href="product.html?id=${escapeHtml(p.id)}" class="glass-panel neon-border rounded-xl overflow-hidden flex flex-col group cursor-pointer ${widthClass} hover-lift reveal tilt-card premium-overlay">
         <div class="h-64 w-full bg-surface-container relative overflow-hidden theme-tint product-image-zoom">
-            <img alt="${escapeHtml(p.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${escapeHtml(img)}"/>
+            <img alt="${escapeHtml(p.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" src="${escapeHtml(img)}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/171f33/dae2fd?text=Laptop+Point'"/>
         </div>
         <div class="p-6 flex-grow flex flex-col justify-between">
             <div>

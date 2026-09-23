@@ -154,7 +154,7 @@
 
         container.innerHTML = cart.map(item => `
             <div class="glass-panel rounded-xl p-4 flex items-center gap-4">
-                <a href="product.html?id=${item.id}"><img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover hover:opacity-80 transition-opacity" loading="lazy"/></a>
+                <a href="product.html?id=${item.id}"><img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover hover:opacity-80 transition-opacity" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/100x100/171f33/dae2fd?text=LP'"/></a>
                 <div class="flex-1 min-w-0">
                     <a href="product.html?id=${item.id}" class="font-medium hover:text-primary transition-colors truncate block">${item.name}</a>
                     <div class="text-sm text-white/40">Rs. ${item.price.toLocaleString()} each</div>
