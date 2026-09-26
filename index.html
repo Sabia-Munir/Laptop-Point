@@ -9,87 +9,76 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
 <link rel="preconnect" href="https://ajax.googleapis.com"/>
 <link rel="dns-prefetch" href="https://lh3.googleusercontent.com"/>
-<meta name="description" content="Laptop Point — premium laptops, keyboards, mice, and accessories in Pakistan. Fast, secure checkout with Cash on Delivery.">
+<meta name="description" content="Laptop Point — premium laptops, keyboards, mice, and accessories in Pakistan. Fast, secure checkout with Cash on Delivery."/>
 <meta property="og:title" content="Laptop Point - Premium Laptops & Accessories"/>
-<meta property="og:description" content="Premium laptops, keyboards, mice, and accessories in Pakistan. Cash on Delivery available.">
+<meta property="og:description" content="Premium laptops, keyboards, mice, and accessories in Pakistan. Cash on Delivery available."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Laptop Point"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Laptop Point - Premium Laptops & Accessories"/>
-<meta name="twitter:description" content="Premium laptops, keyboards, mice, and accessories in Pakistan.">
+<meta name="twitter:description" content="Premium laptops, keyboards, mice, and accessories in Pakistan."/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1326'/%3E%3Crect x='25' y='35' width='50' height='30' fill='none' stroke='%23ddb7ff' stroke-width='6'/%3E%3Cpath d='M18 72h64l6 10H12z' fill='%23a855f7'/%3E%3C/svg%3E"/>
 <title>Laptop Point - Premium Laptops & Accessories</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="assets/js/tailwind-config.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@700;800&family=Inter:wght@400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
 <style>
-        body {
-            background-color: #0b1326; /* match surface */
-            color: #dae2fd; /* match on-surface */
-            overflow-x: hidden;
-        }
-        
-        /* Glassmorphism utility classes */
-        .glass-panel {
-            background: rgba(45, 52, 73, 0.4); /* surface-variant */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .neon-border {
-            border: 1px solid transparent;
-            background-clip: padding-box, border-box;
-            background-origin: padding-box, border-box;
-            background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .neon-border:hover {
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* THEME-TINT: apply this class to any <img> (product photos, new uploads,
-           anything) and it automatically renders with the site's purple/blue neon
-           mood — no manual photo editing needed per upload. To retint the whole
-           site later, only these two rules need to change. */
-        .theme-tint {
-            position: relative;
-        }
-        .theme-tint img {
-            filter: saturate(0.85) contrast(1.05) brightness(0.9);
-        }
-        .theme-tint::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
-            mix-blend-mode: color;
-            pointer-events: none;
-        }
-
-        .scroll-line {
-            animation: scroll-line-pulse 1.8s ease-in-out infinite;
-            transform-origin: top;
-        }
-        @keyframes scroll-line-pulse {
-            0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
-            50% { opacity: 1; transform: scaleY(1); }
-        }
-    </style>
+    body {
+        background-color: #0b1326;
+        color: #dae2fd;
+        overflow-x: hidden;
+    }
+    .glass-panel {
+        background: rgba(45, 52, 73, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .neon-border {
+        border: 1px solid transparent;
+        background-clip: padding-box, border-box;
+        background-origin: padding-box, border-box;
+        background-image: linear-gradient(to right, rgba(45, 52, 73, 0.4), rgba(45, 52, 73, 0.4)), linear-gradient(to right, #a855f7, #3b82f6);
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+        transition: all 0.3s ease;
+    }
+    .neon-border:hover {
+        box-shadow: 0 0 12px rgba(168, 85, 247, 0.2);
+        transform: translateY(-2px);
+    }
+    .fade-in-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .theme-tint {
+        position: relative;
+    }
+    .theme-tint img {
+        filter: saturate(0.85) contrast(1.05) brightness(0.9);
+    }
+    .theme-tint::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.08));
+        mix-blend-mode: color;
+        pointer-events: none;
+    }
+    .scroll-line {
+        animation: scroll-line-pulse 1.8s ease-in-out infinite;
+        transform-origin: top;
+    }
+    @keyframes scroll-line-pulse {
+        0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+        50% { opacity: 1; transform: scaleY(1); }
+    }
+</style>
 <style>
     html { scroll-behavior: smooth; }
     body {
@@ -151,9 +140,7 @@
 </div>
 </div>
 </header>
-<!-- ═══════════════════════════════════════════════════════════
-     HERO — Cinematic, premium, goated
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══ HERO — Premium Modern, No Clutter ═══ -->
 <section id="top" class="relative w-full min-h-screen overflow-hidden flex items-center" role="banner" aria-label="Hero — Laptop Point premium laptops and accessories">
     <!-- Animated gradient mesh background -->
     <div class="gradient-mesh" aria-hidden="true">
@@ -250,126 +237,63 @@
 
     <!-- Hero glow orb (mouse-reactive) -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index:4;" id="hero-glow">
-        <div class="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full bg-primary/10 blur-[120px]"></div>
-    </div>
-
-    <!-- Ring pulse behind laptop -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none" style="z-index:4;">
-        <div class="hero-ring-pulse w-[300px] h-[300px] md:w-[500px] md:h-[500px]"></div>
-        <div class="hero-ring-pulse w-[300px] h-[300px] md:w-[500px] md:h-[500px]"></div>
-        <div class="hero-ring-pulse w-[300px] h-[300px] md:w-[500px] md:h-[500px]"></div>
-    </div>
-
-    <!-- ═══ FLOATING SPEC PILLS ═══ -->
-    <div class="hidden lg:block absolute top-[22%] left-[5%] z-10 hero-stagger" style="transition-delay:1.2s;">
-        <div class="spec-pill rounded-full px-5 py-2.5 flex items-center gap-2.5" style="animation: spec-float 5s ease-in-out infinite;">
-            <span class="spec-pill-dot bg-primary" style="color:#a855f7;"></span>
-            <span class="font-label-sm text-label-sm text-on-surface tracking-wider">RTX 5070 Ti</span>
-        </div>
-    </div>
-    <div class="hidden lg:block absolute top-[20%] right-[5%] z-10 hero-stagger" style="transition-delay:1.4s;">
-        <div class="spec-pill rounded-full px-5 py-2.5 flex items-center gap-2.5" style="animation: spec-float 5s ease-in-out infinite; animation-delay: 0.7s;">
-            <span class="spec-pill-dot bg-tertiary" style="color:#89ceff;"></span>
-            <span class="font-label-sm text-label-sm text-on-surface tracking-wider">240Hz OLED</span>
-        </div>
-    </div>
-    <div class="hidden lg:block absolute bottom-[28%] left-[8%] z-10 hero-stagger" style="transition-delay:1.6s;">
-        <div class="spec-pill rounded-full px-5 py-2.5 flex items-center gap-2.5" style="animation: spec-float 5s ease-in-out infinite; animation-delay: 1.4s;">
-            <span class="spec-pill-dot bg-secondary" style="color:#adc6ff;"></span>
-            <span class="font-label-sm text-label-sm text-on-surface tracking-wider">32GB DDR5</span>
-        </div>
-    </div>
-    <div class="hidden lg:block absolute bottom-[26%] right-[8%] z-10 hero-stagger" style="transition-delay:1.8s;">
-        <div class="spec-pill rounded-full px-5 py-2.5 flex items-center gap-2.5" style="animation: spec-float 5s ease-in-out infinite; animation-delay: 2.1s;">
-            <span class="spec-pill-dot bg-primary" style="color:#a855f7;"></span>
-            <span class="font-label-sm text-label-sm text-on-surface tracking-wider">2TB NVMe Gen5</span>
-        </div>
+        <div class="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full bg-primary/5 blur-[80px]"></div>
     </div>
 
     <!-- ═══ HERO CONTENT ═══ -->
     <div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter pt-28 md:pt-0" id="hero-content" style="pointer-events:auto;">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[80vh]">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
 
-            <!-- LEFT: Text stage -->
-            <div class="hero-stagger-group flex flex-col gap-0">
+            <!-- LEFT: Simplified text stage -->
+            <div class="flex flex-col gap-4">
 
-                <!-- Eyebrow badge -->
-                <div class="hero-stagger mb-6">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-label-sm tracking-[0.2em] uppercase bg-primary/10 border border-primary/20 text-primary">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        New Arrivals 2026
-                    </span>
+                <!-- Eyebrow -->
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    <span class="text-xs font-label-sm tracking-[0.2em] uppercase">New Arrivals 2026</span>
                 </div>
 
-                <!-- Headline with glitch + gradient -->
-                <div class="hero-stagger">
-                    <h1 class="hero-gradient-text hero-glitch font-display-lg text-display-lg md:text-[64px] md:leading-[1.05] md:letter-[-0.05em] font-extrabold uppercase leading-[1.05] tracking-[-0.04em]"
-                        data-text="POWER WITHOUT LIMITS">
-                        POWER WITHOUT<br/>LIMITS
-                    </h1>
-                </div>
+                <!-- Headline -->
+                <h1 class="font-display-lg text-display-lg md:text-[64px] md:leading-[1.1] font-extrabold uppercase tracking-[-0.04em] leading-[1.1] text-primary">
+                    POWER WITHOUT LIMITS
+                </h1>
 
-                <!-- Typewriter sub-headline -->
-                <div class="hero-stagger mt-4">
-                    <div class="font-headline-md text-headline-md text-on-surface-variant/80 h-[32px] md:h-[36px] flex items-center">
-                        <span id="hero-typewriter" class="text-tertiary"></span>
-                        <span class="inline-block w-[2px] h-[1.1em] bg-tertiary ml-1 animate-pulse" id="hero-cursor"></span>
-                    </div>
-                </div>
-
-                <!-- Description -->
-                <div class="hero-stagger mt-5">
-                    <p class="font-body-lg text-body-lg text-on-surface-variant/70 max-w-lg leading-relaxed">
-                        Premium laptops, peripherals and hardware engineered for work, play and everything between. Trusted by thousands across Pakistan.
-                    </p>
-                </div>
+                <!-- Sub-headline -->
+                <p class="font-body-lg text-body-lg text-on-surface-variant/70 max-w-lg leading-relaxed">
+                    Premium laptops, peripherals and hardware engineered for work, play and everything between. Trusted by thousands across Pakistan.
+                </p>
 
                 <!-- CTA buttons -->
-                <div class="hero-stagger mt-8 flex flex-wrap gap-4">
-                    <a href="shop.html?type=laptops" class="hero-cta-primary px-8 py-3.5 rounded-lg font-label-sm text-label-sm inline-flex items-center gap-2">
+                <div class="flex flex-wrap gap-4">
+                    <a href="shop.html?type=laptops" class="hero-cta-primary px-6 py-3 rounded-lg font-label-sm text-label-sm inline-flex items-center gap-2">
                         Explore Laptops
                         <span class="material-symbols-outlined text-lg">arrow_forward</span>
                     </a>
-                    <a href="shop.html?type=accessories" class="hero-cta-secondary px-8 py-3.5 rounded-lg font-label-sm text-label-sm inline-flex items-center gap-2">
+                    <a href="shop.html?type=accessories" class="hero-cta-secondary px-6 py-3 rounded-lg font-label-sm text-label-sm inline-flex items-center gap-2">
                         Build Your Setup
                     </a>
                 </div>
 
-                <!-- Trust indicators -->
-                <div class="hero-stagger mt-8 flex flex-wrap gap-3">
-                    <div class="hero-trust-item">
-                        <span class="hero-trust-dot"></span>
-                        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Cash on Delivery</span>
-                    </div>
-                    <div class="hero-trust-item">
-                        <span class="hero-trust-dot" style="animation-delay:0.5s;"></span>
-                        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Nationwide Shipping</span>
-                    </div>
-                    <div class="hero-trust-item">
-                        <span class="hero-trust-dot" style="animation-delay:1s;"></span>
-                        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Genuine Products</span>
-                    </div>
-                </div>
             </div>
 
-            <!-- RIGHT: Feature card + stats -->
-            <div class="relative hidden lg:flex flex-col items-center justify-center hero-stagger" style="transition-delay:0.4s;">
+            <!-- RIGHT: Enhanced feature card with laptop details -->
+            <div class="relative hidden lg:flex flex-col items-center justify-center">
 
-                <!-- Glowing backdrop for card -->
+                <!-- Glowing backdrop -->
                 <div class="absolute w-[400px] h-[400px] rounded-full bg-primary/8 blur-[80px] pointer-events-none"></div>
 
                 <!-- Premium feature card -->
                 <div class="hero-feature-card relative rounded-2xl p-6 w-full max-w-[380px]">
                     <!-- Card header -->
-                    <div class="flex items-center justify-between mb-5">
+                    <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary text-xl">computer</span>
-                            <span class="font-label-sm text-label-sm text-on-surface tracking-wider uppercase">Featured Build</span>
+                            <span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Featured Build</span>
                         </div>
                         <span class="px-2.5 py-0.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-[10px] font-label-sm tracking-wider uppercase">In Stock</span>
                     </div>
 
-                    <!-- Product image area -->
+                    <!-- Product image + specs area -->
                     <div class="relative rounded-xl overflow-hidden mb-5 bg-gradient-to-br from-surface-container-high/50 to-surface-container/50 border border-white/5 aspect-[16/10] flex items-center justify-center">
                         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
                         <span class="material-symbols-outlined text-6xl text-primary/30">laptop_mac</span>
@@ -383,15 +307,15 @@
                     <div class="grid grid-cols-3 gap-2 mb-5">
                         <div class="text-center p-2 rounded-lg bg-surface-container-high/40 border border-white/5">
                             <div class="text-[10px] text-on-surface-variant/50 font-label-sm tracking-wider uppercase mb-0.5">GPU</div>
-                            <div class="text-xs text-on-surface font-label-sm font-medium">RTX 5070</div>
+                            <div class="text-xs text-on-surface font-label-sm font-medium">RTX 5070 8GB</div>
                         </div>
                         <div class="text-center p-2 rounded-lg bg-surface-container-high/40 border border-white/5">
                             <div class="text-[10px] text-on-surface-variant/50 font-label-sm tracking-wider uppercase mb-0.5">RAM</div>
-                            <div class="text-xs text-on-surface font-label-sm font-medium">32GB</div>
+                            <div class="text-xs text-on-surface font-label-sm font-medium">32GB DDR5</div>
                         </div>
                         <div class="text-center p-2 rounded-lg bg-surface-container-high/40 border border-white/5">
                             <div class="text-[10px] text-on-surface-variant/50 font-label-sm tracking-wider uppercase mb-0.5">Storage</div>
-                            <div class="text-xs text-on-surface font-label-sm font-medium">2TB</div>
+                            <div class="text-xs text-on-surface font-label-sm font-medium">2TB NVMe Gen5</div>
                         </div>
                     </div>
 
@@ -411,7 +335,7 @@
                 </div>
 
                 <!-- Stats strip below card -->
-                <div class="hero-stagger mt-5 w-full max-w-[380px] hero-stagger-group" style="transition-delay:1s;">
+                <div class="mt-5 w-full max-w-[380px]">
                     <div class="hero-stat-strip">
                         <div class="hero-stat-item">
                             <div class="text-lg font-display-lg font-extrabold text-primary hero-stat-count" data-target="500">0</div>
@@ -427,12 +351,13 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hero-stagger" style="transition-delay:2s;">
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
         <span class="font-label-sm text-label-sm text-on-surface-variant/50 tracking-[0.25em] uppercase">Scroll to Explore</span>
         <div class="w-px h-8 bg-gradient-to-b from-primary/60 to-transparent scroll-line"></div>
     </div>
@@ -451,7 +376,7 @@
 <!-- Accessories -->
 <section id="accessories" class="space-y-stack-lg fade-in-section mt-stack-lg scroll-mt-24">
 <div class="flex justify-between items-center mb-stack-md border-b border-white/10 pb-2 reveal">
-<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Gear &amp; Accessories</h2>
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Gear & Accessories</h2>
 <a href="shop.html?type=accessories" class="font-label-sm text-label-sm text-primary uppercase tracking-wider hover:text-white transition-colors whitespace-nowrap magnetic">View All &rarr;</a>
 </div>
 <div id="accessories-loading" class="text-on-surface-variant text-sm" aria-live="polite">Loading accessories...</div>
@@ -549,9 +474,11 @@
 </footer>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ── Hero entrance stagger ──
+            // ── Hero entrance ──
             requestAnimationFrame(() => {
-                document.querySelectorAll('.hero-stagger').forEach(el => el.classList.add('visible'));
+                document.querySelectorAll('#hero-content > div > div').forEach((el, idx) => {
+                    setTimeout(() => el.classList.add('visible'), idx * 150);
+                });
             });
 
             // ── Hero typewriter ──
@@ -648,7 +575,7 @@
 <script src="assets/js/counter.js"></script>
 <script src="assets/js/page-transition.js"></script>
 <script src="assets/js/cursor.js"></script>
-    <script src="assets/js/product-card.js"></script>
+<script src="assets/js/product-card.js"></script>
 <script src="assets/js/tilt-card.js"></script>
 <script src="assets/js/card-overlay.js"></script>
 <script src="assets/js/progress-bar.js"></script>
@@ -661,7 +588,7 @@
 <script src="assets/js/mobile-nav.js"></script>
 <script src="assets/js/structured-data.js"></script>
 <script src="assets/js/whatsapp.js"></script>
-    <script>
+<script>
         // Storefront product loading — reads from the public_products view, which
         // only ever exposes an availability badge (in_stock/low_stock/out_of_stock),
         // never the real stock_quantity number. See database/schema.sql.
@@ -674,11 +601,21 @@
                 .select('*');
 
             if (error) {
-                document.getElementById('laptops-loading').textContent = 'Could not load products.';
+                // Diagnostic info for debugging
+                const errorMsg = error.message || error.details || 'Unknown error';
+                console.error('Supabase error loading products:', error);
+                document.getElementById('laptops-loading').textContent = 'Database error: ' + errorMsg;
                 document.getElementById('accessories-loading').textContent = '';
-                console.error(error);
+                // Show helpful message based on error type
+                if (errorMsg.includes('rate limit')) {
+                    document.getElementById('laptops-loading').textContent = 'Rate limit exceeded. Please wait a moment and try again.';
+                } else if (errorMsg.includes('connection')) {
+                    document.getElementById('laptops-loading').textContent = 'Connection failed. Check your internet and Supabase status.';
+                }
                 return;
             }
+
+            // ... rest of the function
 
             const laptops = products.filter(p => p.category === 'laptop');
             const accessories = products.filter(p => ACCESSORY_CATEGORIES.includes(p.category));
